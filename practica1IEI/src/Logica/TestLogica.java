@@ -6,7 +6,7 @@ public class TestLogica {
 
 
 		System.out.println("------------ Empezamos la prueba----------");
-		ServicioMysql servicioMysql = new ServicioMysql();
+		Servicio servicioMysql = new Servicio();
 		System.out.println("------------ Terminamos la prueba----------");
 
 	}
