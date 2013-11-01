@@ -6,8 +6,8 @@ import java.sql.Statement;
 
 
 public class Consulta1 extends Conexion{
-	Statement s,s2,s3,s4; 
-	ResultSet rs = null,tarjetas=null,cliente=null;
+	Statement s,s2,s3,s4,s5; 
+	ResultSet rs = null,tarjetas=null,cliente=null,emisor=null;
 	String consulta ="";
 	public void ejecutar() throws SQLException{
 		
@@ -55,19 +55,28 @@ public class Consulta1 extends Conexion{
 			s2=this.mysql.createStatement();
 			s3=this.mysql.createStatement();
 			s4=this.mysql.createStatement();
+			s5=this.mysql.createStatement();
+
 			
 			while(tarjetas.next()){
 				//cliente
 				cliente=s2.executeQuery("SELECT nombreCliente FROM db3.clientes WHERE NumTarjeta='"+tarjetas.getString(1)+"'");
+				
 				if(cliente.next()){
+					
 					//monto
 					rs=s3.executeQuery("SELECT SUM(importe) FROM mydb.transaccionesaux WHERE tarjeta='"+tarjetas.getString(1)+"'");
-					//Insert de la tupla
+
+					
 					if(rs.next()){
-						//s4.executeUpdate("INSERT INTO mydb.listadoclientes (nombreCliente, numeroTarjeta, emisor, montoOperaciones) "
-								//+ "VALUES ('"+cliente.getString(1)+"', '"+tarjetas.getString(1)+"', '"+tarjetas.getString(2)+"', "+rs.getFloat(1)+")");
-						s4.executeUpdate("INSERT INTO mydb.listadoclientes (nombreCliente, numeroTarjeta, montoOperaciones) "
-								+ "VALUES ('"+cliente.getString(1)+"', '"+tarjetas.getString(1)+"', "+rs.getFloat(1)+")");
+					
+						//emisor
+						emisor=s5.executeQuery("SELECT EmisorTarjeta FROM db3.clientes WHERE NumTarjeta='"+tarjetas.getString(1)+"'");
+						
+						if(emisor.next()){
+							s4.executeUpdate("INSERT INTO mydb.listadoclientes (nombreCliente, numeroTarjeta, emisor, montoOperaciones) "
+									+ "VALUES ('"+cliente.getString(1)+"', '"+tarjetas.getString(1)+"', '"+emisor.getString(1)+"', "+rs.getFloat(1)+")");
+						}
 					}
 				}
 			}
