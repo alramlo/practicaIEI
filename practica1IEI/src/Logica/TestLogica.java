@@ -13,7 +13,7 @@ public class TestLogica {
 		
 		Consulta1 consulta1 = new Consulta1();
 		System.out.println("Ejecutado proceso de llenado de TransaccionesAux.");
-		consulta1.transacionesAux();
+		consulta1.ejecutar();
 		
 		System.out.println("------------ Terminamos la prueba----------");
 

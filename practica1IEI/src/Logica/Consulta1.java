@@ -9,7 +9,7 @@ public class Consulta1 extends Conexion{
 	Statement s,s2,s3,s4; 
 	ResultSet rs = null,tarjetas=null,cliente=null;
 	String consulta ="";
-	public void transacionesAux() throws SQLException{
+	public void ejecutar() throws SQLException{
 		
 		try{
 			s=this.mysql.createStatement();
