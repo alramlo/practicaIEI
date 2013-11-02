@@ -6,83 +6,46 @@ import java.sql.Statement;
 
 
 public class Consulta1 extends Conexion{
-	Statement s,s2,s3,s4,s5; 
-	ResultSet rs = null,tarjetas=null,cliente=null,emisor=null;
-	String consulta ="";
+	private Statement s,s2,s3; 
+	private ResultSet rs,clientes;
+	
+	public Consulta1() throws SQLException, ClassNotFoundException{
+		super();
+		this.conectar();
+		s=this.mysql.createStatement();
+		s2=this.mysql.createStatement();
+		s3=this.mysql.createStatement();
+	}
+	
 	public void ejecutar() throws SQLException{
 		
 		try{
-			s=this.mysql.createStatement();
 			
-			//Borrado
-			s.executeUpdate("DELETE FROM mydb.transaccionesaux");
+
+			
+			//Primero borramos los datos de la tabla de listado de clientes
+			System.out.println("Borrado de listado de clientes");
 			s.executeUpdate("DELETE FROM mydb.listadoclientes");
 			
-			//LLenado de transacciones desde db1
-			System.out.println("Transacciones de db1");
-			s.executeUpdate("INSERT INTO mydb.transaccionesaux (tarjeta, importe, emisor) SELECT NumTarjeta, Importe, EmisorTarjeta FROM db1.transacciones");
-			
-			//LLenado de transacciones desde derby
-			System.out.println("Transacciones de derby");
-			s=this.derby.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			rs=s.executeQuery("SELECT NumeroTarjeta, Importe, EmisorTarjeta FROM APP.TRANSACCIONES");
-			
-			//Creación de la consulta
-			System.out.println("Creación de consulta Derby");
-			consulta="INSERT INTO mydb.transaccionesaux (tarjeta, importe, emisor) VALUES ";
-
-			while(rs.next())
-			{
-				if(rs.isLast())
-					consulta=consulta+"('"+rs.getString(1)+"', "+rs.getFloat(2)+", '"+rs.getString(3)+"')";
-				else
-					consulta=consulta+"('"+rs.getString(1)+"', "+rs.getFloat(2)+", '"+rs.getString(3)+"'),";
-			}
-			
-			System.out.println("Consulta --> "+consulta);
-			
-			System.out.println("Llenado desde Derby");
-			
-			s=this.mysql.createStatement();
-			s.executeUpdate(consulta);
-			
-			
-			//tarjetas diferentes que hay en todas las transacciones
-			tarjetas=s.executeQuery("SELECT DISTINCT tarjeta FROM mydb.transaccionesaux");
+			//Listado de clientes
+			System.out.println("Obtención de clientes");
+			clientes=s.executeQuery("SELECT * FROM db3.clientes");
 			
 			//calculo del monto
-			
-			s2=this.mysql.createStatement();
-			s3=this.mysql.createStatement();
-			s4=this.mysql.createStatement();
-			s5=this.mysql.createStatement();
-
-			
-			while(tarjetas.next()){
-				//cliente
-				cliente=s2.executeQuery("SELECT nombreCliente FROM db3.clientes WHERE NumTarjeta='"+tarjetas.getString(1)+"'");
-				
-				if(cliente.next()){
+			System.out.println("Cálculo de monto por cliente");
+			while(clientes.next()){
 					
 					//monto
-					rs=s3.executeQuery("SELECT SUM(importe) FROM mydb.transaccionesaux WHERE tarjeta='"+tarjetas.getString(1)+"'");
-
-					
-					if(rs.next()){
-					
-						//emisor
-						emisor=s5.executeQuery("SELECT EmisorTarjeta FROM db3.clientes WHERE NumTarjeta='"+tarjetas.getString(1)+"'");
-						
-						if(emisor.next()){
-							s4.executeUpdate("INSERT INTO mydb.listadoclientes (nombreCliente, numeroTarjeta, emisor, montoOperaciones) "
-									+ "VALUES ('"+cliente.getString(1)+"', '"+tarjetas.getString(1)+"', '"+emisor.getString(1)+"', "+rs.getFloat(1)+")");
-						}
-					}
-				}
+					//System.out.println("Cálculo");
+					rs=s2.executeQuery("SELECT SUM(importe) FROM mydb.transaccionesaux WHERE tarjeta='"+clientes.getString(2)+"'");
+					//System.out.println("Insercción");
+					rs.next();
+					s3.executeUpdate("INSERT INTO mydb.listadoclientes (nombreCliente, numeroTarjeta, emisor, montoOperaciones) "
+									+ "VALUES ('"+clientes.getString(7)+"', '"+clientes.getString(2)+"', '"+clientes.getString(6)+"', "+rs.getFloat(1)+")");
 			}
 			
 		}catch(SQLException e){
-			System.out.println("Error en Consulta1.transacionesAux(): "+e);
+			System.out.println("Error en Consulta1.ejecutar: "+e);
 		}
 		
 	}
