@@ -15,12 +15,17 @@ public class TestLogica {
 		
 		TablaAux ta = new TablaAux();
 		Consulta1 c1 = new Consulta1();
+		Consulta2 c2 = new Consulta2();
+		Consulta3 c3 = new Consulta3();
 		
-		ta.ejecutar();
-		ta.cerrar();
+		//ta.ejecutar();
+		//ta.cerrar();
 		
-		c1.ejecutar();
-		c1.cerrar();
+		//c1.ejecutar();
+		//c1.cerrar();
+		
+		c3.ejecutar();
+		c3.cerrar();
 		
 		System.out.println("------------ Terminamos la prueba----------");
 

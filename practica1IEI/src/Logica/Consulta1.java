@@ -10,18 +10,17 @@ public class Consulta1 extends Conexion{
 	private ResultSet rs,clientes;
 	
 	public Consulta1() throws SQLException, ClassNotFoundException{
+		
 		super();
 		this.conectar();
+		s=this.mysql.createStatement();
+		s2=this.mysql.createStatement();
+		s3=this.mysql.createStatement();
 	}
 	
 	public void ejecutar() throws SQLException{
 		
 		try{
-			
-
-			s=this.mysql.createStatement();
-			s2=this.mysql.createStatement();
-			s3=this.mysql.createStatement();
 			
 			//Primero borramos los datos de la tabla de listado de clientes
 			System.out.println("Borrado de listado de clientes");
