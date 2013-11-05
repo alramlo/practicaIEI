@@ -11,9 +11,8 @@ public class TablaAux extends Conexion{
 	private ResultSet rs;
 	
 	//Constructor
-	public TablaAux() throws ClassNotFoundException{
+	public TablaAux() throws ClassNotFoundException, SQLException{
 		super();
-		this.s=null;
 		this.rs=null;
 		this.consulta="";
 		this.conectar();
@@ -24,8 +23,8 @@ public class TablaAux extends Conexion{
 		
 		try{
 			
-			s=this.mysql.createStatement();
 			
+			s=this.mysql.createStatement();
 			//Borrado
 			s.executeUpdate("DELETE FROM mydb.transaccionesaux");
 			
@@ -68,9 +67,31 @@ public class TablaAux extends Conexion{
 			
 			s=this.mysql.createStatement();
 			s.executeUpdate(consulta);
+			
+			//Cerramos todo
+			rs.close();
+			s.close();
 		
 		}catch(SQLException e){
 			System.out.println("Error en TablaAux.ejecutar(): "+e);
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	public void cerrar() throws SQLException{
+		
+		try{
+			
+			//Cerramos todo
+			rs.close();
+			s.close();
+			
+		}catch(SQLException e){
+			
+			System.out.println("Error en TablaAux.cerrar(): "+e);
+			e.printStackTrace();
 			
 		}
 		

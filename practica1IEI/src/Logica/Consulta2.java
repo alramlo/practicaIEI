@@ -31,9 +31,11 @@ public class Consulta2 extends Conexion{
 		}
 	}
 	
-	public void llenarTablaTransSinCliente(){
+	public void ejecutar(){
 	
 		try {
+			
+		s.executeUpdate("DELETE FROM mydb.transaccionessin");
 		
 		consulta="SELECT * FROM mydb.transaccionesaux ta HAVING ta.tarjeta NOT IN"
 				+ " (SELECT numeroTarjeta FROM mydb.listadoclientes lc)"; 
@@ -53,10 +55,6 @@ public class Consulta2 extends Conexion{
 			s1.executeUpdate(consulta);
 		}
 		
-		rs.close();
-		s.close();
-		s1.close();
-		
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -65,20 +63,39 @@ public class Consulta2 extends Conexion{
 		
 	}
 	
-	public void getTarjetasSinClientes(){
+	public ResultSet getResultado(){
 		
 		consulta="SELECT * FROM mydb.transaccionessin";
 		
 		try {
-			s2.executeQuery(consulta);
-			rs2=s2.getResultSet();
-			
-			s2.close();
-			rs2.close();
+			rs2=s2.executeQuery(consulta);
+			return rs2;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}		
+		
+	}
+	
+	public void cerrar() throws SQLException{
+		
+		try{
+			
+			//Cerramos todo
+			rs.close();
+			rs2.close();
+			s.close();
+			s1.close();
+			s2.close();
+			
+		}catch(SQLException e){
+			
+			System.out.println("Error en Consulta2.cerrar(): "+e);
+			e.printStackTrace();
+			
+		}
 		
 	}
 }

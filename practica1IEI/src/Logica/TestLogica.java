@@ -13,13 +13,14 @@ public class TestLogica {
 		
 		System.out.println("------------ Empezamos la prueba----------");
 		
-		Conexion co = new Conexion();
 		TablaAux ta = new TablaAux();
 		Consulta1 c1 = new Consulta1();
 		
-		co.conectar();
 		ta.ejecutar();
+		ta.cerrar();
+		
 		c1.ejecutar();
+		c1.cerrar();
 		
 		System.out.println("------------ Terminamos la prueba----------");
 

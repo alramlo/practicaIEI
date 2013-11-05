@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
-public class Conexion {
+public abstract class Conexion {
 	
 	protected Connection mysql;
 	protected Connection derby;
@@ -32,6 +32,8 @@ public class Conexion {
 		
 		} catch (Exception e){
 			System.out.println("Error al conectar: "+e); 
+			e.printStackTrace();
+
 		}
 	}
 
