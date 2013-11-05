@@ -13,7 +13,6 @@ public class TestSergio {
 		System.out.println("Ejecutado proceso de llenado de mydb.transaccionessin");
 		
 		c2.ejecutar();
-	
 		c2.cerrar();
 		
 		System.out.println("------------ Terminamos la prueba----------");
