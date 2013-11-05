@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class Consulta2 extends Conexion{
 	
 	Statement s, s1, s2; 
-	ResultSet rs = null, rs2 = null;
+	ResultSet rs = null;
 	String consulta="", descOp="", numTar="", emiTar="";
 	int idTrans;
 	Date fecha;
@@ -68,8 +68,8 @@ public class Consulta2 extends Conexion{
 		consulta="SELECT * FROM mydb.transaccionessin";
 		
 		try {
-			rs2=s2.executeQuery(consulta);
-			return rs2;
+			rs=s2.executeQuery(consulta);
+			return rs;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +85,6 @@ public class Consulta2 extends Conexion{
 			
 			//Cerramos todo
 			rs.close();
-			rs2.close();
 			s.close();
 			s1.close();
 			s2.close();
