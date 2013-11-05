@@ -12,10 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.TitledBorder;
+
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.border.MatteBorder;
+
 import java.awt.Dimension;
 
 public class InicioGUI {
@@ -40,8 +44,13 @@ public class InicioGUI {
 
 	/**
 	 * Create the application.
+	 * @throws UnsupportedLookAndFeelException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
-	public InicioGUI() {
+	public InicioGUI() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		javax.swing.UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		initialize();
 	}
 
@@ -63,7 +72,7 @@ public class InicioGUI {
 		frmIeiCurso.getContentPane().add(panelNorte, BorderLayout.NORTH);
 		
 		JLabel lblTitulo = new JLabel("IEI Pr\u00E1ctica 1 - ");
-		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 41));
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 42));
 		panelNorte.add(lblTitulo);
 		
 		JLabel lblSubTitulo = new JLabel("Integraci\u00F3n de datos");
