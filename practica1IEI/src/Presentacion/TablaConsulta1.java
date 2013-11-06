@@ -1,7 +1,5 @@
 package Presentacion;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Logica.Consulta1;
 import Modelo.Consulta1DTO;
@@ -29,9 +24,6 @@ public class TablaConsulta1 extends JDialog {
 	
 	private Consulta1 consulta1DAO;
 	private ResultSet rsResultado;
-	
-//	private List<Consulta1DTO> listaConsulta1DTO;
-
 
 	public TablaConsulta1() {
 		setResizable(false);
@@ -52,7 +44,6 @@ public class TablaConsulta1 extends JDialog {
 //		scrollPane.add(tablaConsulta1DTOs);
 		scrollPane.setBounds(10, 10, 799, 417);
 		getContentPane().add(scrollPane);
-		scrollPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tablaConsulta1DTOs}));
 		
 		setTitle("Listado con los clientes y el monto total de las transacciones de su tarjeta:");
 		
@@ -117,7 +108,6 @@ public class TablaConsulta1 extends JDialog {
 				
 				consulta1DAO = new Consulta1();
 				rsResultado = consulta1DAO.getResultado();
-//				listaConsulta1DTO =  new ArrayList<Consulta1DTO>();
 				Consulta1DTO c1 = null;
 				while (rsResultado.next()){
 					c1 = new Consulta1DTO();
