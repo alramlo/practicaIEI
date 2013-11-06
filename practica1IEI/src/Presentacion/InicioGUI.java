@@ -132,6 +132,14 @@ public class InicioGUI {
 		panelConsulta2.add(lblListadoDeTransacciones_1);
 		
 		JButton btnVerC2 = new JButton("Ver Consulta 2");
+		btnVerC2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaConsulta2 ventanaTabla2 = new TablaConsulta2();
+				ventanaTabla2.setModal(true);
+				ventanaTabla2.cargaConsulta2DTO();
+				ventanaTabla2.setVisible(true);
+			}
+		});
 		btnVerC2.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/searchDB.png")));
 		btnVerC2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVerC2.setBounds(268, 53, 175, 40);
@@ -151,6 +159,14 @@ public class InicioGUI {
 		panelConsulta3.add(lblListadoDeTarjetas_1);
 		
 		JButton btnVerC3 = new JButton("Ver Consulta 3");
+		btnVerC3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaConsulta3 ventanaTabla3 = new TablaConsulta3();
+				ventanaTabla3.setModal(true);
+				ventanaTabla3.cargaConsulta3DTO();
+				ventanaTabla3.setVisible(true);
+			}
+		});
 		btnVerC3.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/searchDB.png")));
 		btnVerC3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVerC3.setBounds(268, 53, 175, 40);

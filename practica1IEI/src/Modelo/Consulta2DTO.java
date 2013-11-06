@@ -1,13 +1,13 @@
 package Modelo;
 
-import org.apache.derby.client.am.DateTime;
+import java.sql.Date;
 
 public class Consulta2DTO {
 
 	private int idTransaccion;
 	private String descripcionOperacion;
-	private DateTime fecha;
-	private double importe;
+	private Date fecha;
+	private float importe;
 	private String numTarjeta;
 	private String emisor;
 	
@@ -24,16 +24,16 @@ public class Consulta2DTO {
 	public void setDescripcionOperacion(String descripcionOperacion) {
 		this.descripcionOperacion = descripcionOperacion;
 	}
-	public DateTime getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(DateTime fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public double getImporte() {
+	public float getImporte() {
 		return importe;
 	}
-	public void setImporte(double importe) {
+	public void setImporte(float importe) {
 		this.importe = importe;
 	}
 	public String getNumTarjeta() {

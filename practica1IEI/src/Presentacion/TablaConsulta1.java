@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
 
 import Logica.Consulta1;
 import Modelo.Consulta1DTO;
+import java.awt.ComponentOrientation;
 
 public class TablaConsulta1 extends JDialog {
 
@@ -45,7 +46,7 @@ public class TablaConsulta1 extends JDialog {
 		scrollPane.setBounds(10, 10, 799, 417);
 		getContentPane().add(scrollPane);
 		
-		setTitle("Listado con los clientes y el monto total de las transacciones de su tarjeta:");
+		setTitle("IEI Consulta 1 - Listado con los clientes y el monto total de las transacciones de su tarjeta:");
 		
 		
 	}
