@@ -1,25 +1,24 @@
 package Presentacion;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import Logica.Consulta1;
 import Modelo.Consulta1DTO;
-import javax.swing.JScrollPane;
-import java.awt.ScrollPane;
 
 public class TablaConsulta1 extends JDialog {
 
@@ -35,23 +34,28 @@ public class TablaConsulta1 extends JDialog {
 
 
 	public TablaConsulta1() {
+		setResizable(false);
 		setPreferredSize(new Dimension(600, 500));
 		setBounds(100, 100, 835, 475);
 		{
 			tablaConsulta1DTOModel = new TablaConsulta1Model();
+			tablaConsulta1DTOs = new JTable();
+			
+			tablaConsulta1DTOs.setBounds(10, 11, 799, 415);
+			tablaConsulta1DTOs.setModel(tablaConsulta1DTOModel);
+			tablaConsulta1DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+			tablaConsulta1DTOs.setRowHeight(25);		
 		}
-		getContentPane().setLayout(null);
 		
-		ScrollPane scrollPane = new ScrollPane();
+		getContentPane().setLayout(null);
+		JScrollPane scrollPane = new JScrollPane(tablaConsulta1DTOs);
+//		scrollPane.add(tablaConsulta1DTOs);
 		scrollPane.setBounds(10, 10, 799, 417);
 		getContentPane().add(scrollPane);
-		tablaConsulta1DTOs = new JTable();
-//		getContentPane().add(tablaConsulta1DTOs);
-		scrollPane.add(tablaConsulta1DTOs);
-		tablaConsulta1DTOs.setBounds(10, 11, 799, 415);
-		tablaConsulta1DTOs.setModel(tablaConsulta1DTOModel);
-		tablaConsulta1DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		tablaConsulta1DTOs.setRowHeight(25);
+		scrollPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tablaConsulta1DTOs}));
+		
+		setTitle("Listado con los clientes y el monto total de las transacciones de su tarjeta:");
+		
 		
 	}
 	
@@ -59,18 +63,18 @@ public class TablaConsulta1 extends JDialog {
 
 		private static final long serialVersionUID = 1L;
 		// Columnas de la tabla
-		private String[] columnNames = {"ID CLIENTE", "NOMBRE CLIENTE", "NÚMERO DE TARJETA", "EMISOR", "MONTO OPERACIONES"};
+		private String[] columnas = {"ID CLIENTE", "NOMBRE CLIENTE", "NÚMERO DE TARJETA", "EMISOR", "MONTO OPERACIONES"};
 		// Datos que muestra la tabla
 		private ArrayList<Consulta1DTO> data = new ArrayList<Consulta1DTO>();
 
 		public int getColumnCount() {
-			return columnNames.length;
+			return columnas.length;
 		}
 		public int getRowCount() {
 			return data.size();
 		}
 		public String getColumnName(int col) {
-			return columnNames[col];
+			return columnas[col];
 		}
 		// Este método se dispara cada vez que la tabla necesita el valor de un campo
 		public Object getValueAt(int row, int col) {
