@@ -2,9 +2,9 @@ package Presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 
+import Logica.Consulta1;
 import Modelo.Consulta1DTO;
 
 public class TablaConsulta1 extends JDialog {
@@ -21,6 +22,9 @@ public class TablaConsulta1 extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
+	private Consulta1 consulta1DAO;
+	private ResultSet rsResultado;
+//	private List<Consulta1DTO> listaConsulta1DTO;
 
 	/**
 	 * Create the dialog.
@@ -100,19 +104,31 @@ public class TablaConsulta1 extends JDialog {
 	
 	public void cargaConsulta1DTO(){
 		try{
-			List<Consulta1DTO> listaConsulta1DTO = null; //control.listarObjects();
-			Iterator<Consulta1DTO> it = listaConsulta1DTO.iterator();
-			Consulta1DTO c1;
-			TablaConsultaModel model=(TablaConsultaModel)table.getModel();
-			model.clear();
-			while (it.hasNext()){
-				c1=it.next();
-				model.addRow(c1);
+				TablaConsultaModel model=(TablaConsultaModel)table.getModel();
+				model.clear();
+				
+				consulta1DAO = new Consulta1();
+				rsResultado = consulta1DAO.getResultado();
+//				listaConsulta1DTO =  new ArrayList<Consulta1DTO>();
+				Consulta1DTO c1 = null;
+				while (rsResultado.next()){
+					c1 = new Consulta1DTO();
+						c1.setIdCliente(rsResultado.getInt(1));
+						c1.setNombreCliente(rsResultado.getString(2));
+						c1.setNumTarjeta(rsResultado.getString(3));
+						c1.setEmisor(rsResultado.getString(4));
+						c1.setMontoOperaciones(rsResultado.getFloat(5));
+					model.addRow(c1);
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e){
+				JOptionPane.showMessageDialog(this,e.getMessage(),"ERROR",
+						JOptionPane.ERROR_MESSAGE);
 			}
-		}catch (Exception e){
-			JOptionPane.showMessageDialog(this,e.getMessage(),"ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		}
 	}
-
 }

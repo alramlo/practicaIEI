@@ -6,7 +6,7 @@ public class Consulta1DTO {
 	private String nombreCliente;
 	private String numTarjeta;
 	private String emisor;
-	private double montoOperaciones;
+	private float montoOperaciones;
 	
 	
 	public int getIdCliente() {
@@ -33,10 +33,10 @@ public class Consulta1DTO {
 	public void setEmisor(String emisor) {
 		this.emisor = emisor;
 	}
-	public double getMontoOperaciones() {
+	public float getMontoOperaciones() {
 		return montoOperaciones;
 	}
-	public void setMontoOperaciones(double montoOperaciones) {
+	public void setMontoOperaciones(float montoOperaciones) {
 		this.montoOperaciones = montoOperaciones;
 	}
 	
