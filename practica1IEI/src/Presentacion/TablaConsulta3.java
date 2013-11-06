@@ -14,59 +14,58 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import Logica.Consulta1;
-import Modelo.Consulta1DTO;
+import Logica.Consulta3;
+import Modelo.Consulta3DTO;
 
-public class TablaConsulta1 extends JDialog {
+public class TablaConsulta3 extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTable tablaConsulta1DTOs;
-	private TableModel tablaConsulta1DTOModel;
+	private JTable tablaConsulta3DTOs;
+	private TableModel tablaConsulta3DTOModel;
 	
-	private Consulta1 consulta1DAO;
+	private Consulta3 consulta3DAO;
 	private ResultSet rsResultado;
 
-	public TablaConsulta1() {
+	public TablaConsulta3() {
 		setResizable(false);
 		setPreferredSize(new Dimension(600, 500));
 		setBounds(100, 100, 835, 475);
 		{
-			tablaConsulta1DTOModel = new TablaConsulta1Model();
-			tablaConsulta1DTOs = new JTable();
+			tablaConsulta3DTOModel = new TablaConsulta3Model();
+			tablaConsulta3DTOs = new JTable();
 			
-			tablaConsulta1DTOs.setBounds(10, 11, 799, 415);
-			tablaConsulta1DTOs.setModel(tablaConsulta1DTOModel);
-			tablaConsulta1DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-			tablaConsulta1DTOs.setRowHeight(25);	
-
+			tablaConsulta3DTOs.setBounds(10, 11, 799, 415);
+			tablaConsulta3DTOs.setModel(tablaConsulta3DTOModel);
+			tablaConsulta3DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+			tablaConsulta3DTOs.setRowHeight(25);
+			
 			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 			centerRenderer.setHorizontalAlignment( JLabel.LEFT );
-			for(int i=0; i<5; i++)
+			for(int i=0; i<4; i++)
 			{
-				tablaConsulta1DTOs.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+				tablaConsulta3DTOs.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
 			}
-			
 		}
 		
 		getContentPane().setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(tablaConsulta1DTOs);
-//		scrollPane.add(tablaConsulta1DTOs);
+		JScrollPane scrollPane = new JScrollPane(tablaConsulta3DTOs);
+//		scrollPane.add(tablaConsulta3DTOs);
 		scrollPane.setBounds(10, 10, 799, 417);
 		getContentPane().add(scrollPane);
 		
-		setTitle("IEI Consulta 1 - Listado con los clientes y el monto total de las transacciones de su tarjeta:");
+		setTitle("IEI Consulta 3 - Listado de tarjetas sospechas, con m\u00E1s de 5.000 euros en operaciones:");
 		
 		
 	}
 	
-	class TablaConsulta1Model extends AbstractTableModel {
+	class TablaConsulta3Model extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
 		// Columnas de la tabla
-		private String[] columnas = {"ID CLIENTE", "NOMBRE CLIENTE", "NÚMERO DE TARJETA", "EMISOR", "MONTO OPERACIONES"};
+		private String[] columnas = {"ID OPERACIÓN", "NÚMERO DE TARJETA", "EMISOR", "IMPORTE TOTAL"};
 		// Datos que muestra la tabla
-		private ArrayList<Consulta1DTO> data = new ArrayList<Consulta1DTO>();
+		private ArrayList<Consulta3DTO> data = new ArrayList<Consulta3DTO>();
 
 		public int getColumnCount() {
 			return columnas.length;
@@ -79,13 +78,12 @@ public class TablaConsulta1 extends JDialog {
 		}
 		// Este método se dispara cada vez que la tabla necesita el valor de un campo
 		public Object getValueAt(int row, int col) {
-			Consulta1DTO c1 = data.get(row);
+			Consulta3DTO c3 = data.get(row);
 			switch(col){
-			case 0: return c1.getIdCliente();
-			case 1: return c1.getNombreCliente();
-			case 2: return c1.getNumTarjeta();
-			case 3: return c1.getEmisor();
-			case 4: return c1.getMontoOperaciones();
+			case 0: return c3.getIdOperacion();
+			case 1: return c3.getNumTarjeta();
+			case 2: return c3.getEmisor();
+			case 3: return c3.getImporteTotal();
 			default: return null;
 			}
 		}
@@ -101,7 +99,7 @@ public class TablaConsulta1 extends JDialog {
 		public Class<? extends Object>getColumnClass(int c) {
 			return getValueAt(0, c).getClass();
 		}
-		public void addRow(Consulta1DTO row) {
+		public void addRow(Consulta3DTO row) {
 			data.add(row);
 			this.fireTableDataChanged();
 		}
@@ -111,22 +109,21 @@ public class TablaConsulta1 extends JDialog {
 		}
 	}
 	
-	public void cargaConsulta1DTO(){
+	public void cargaConsulta3DTO(){
 		try{
-				TablaConsulta1Model model = (TablaConsulta1Model)tablaConsulta1DTOs.getModel();
+				TablaConsulta3Model model = (TablaConsulta3Model)tablaConsulta3DTOs.getModel();
 				model.clear();
 				
-				consulta1DAO = new Consulta1();
-				rsResultado = consulta1DAO.getResultado();
-				Consulta1DTO c1 = null;
+				consulta3DAO = new Consulta3();
+				rsResultado = consulta3DAO.getResultado();
+				Consulta3DTO c3 = null;
 				while (rsResultado.next()){
-					c1 = new Consulta1DTO();
-						c1.setIdCliente(rsResultado.getInt("idCliente"));
-						c1.setNombreCliente(rsResultado.getString("nombreCliente"));
-						c1.setNumTarjeta(rsResultado.getString("numeroTarjeta"));
-						c1.setEmisor(rsResultado.getString("emisor"));
-						c1.setMontoOperaciones(rsResultado.getFloat("montoOperaciones"));
-					model.addRow(c1);
+					c3 = new Consulta3DTO();
+						c3.setIdOperacion(rsResultado.getInt("idOperacion"));
+						c3.setNumTarjeta(rsResultado.getString("numeroTarjeta"));
+						c3.setEmisor(rsResultado.getString("emisor"));
+						c3.setImporteTotal(rsResultado.getFloat("importe"));
+					model.addRow(c3);
 				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
