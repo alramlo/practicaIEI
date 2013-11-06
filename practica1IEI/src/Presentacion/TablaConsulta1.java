@@ -1,6 +1,7 @@
 package Presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,49 +14,52 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import Logica.Consulta1;
 import Modelo.Consulta1DTO;
+import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
 
 public class TablaConsulta1 extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTable table;
+	
+	private JTable tablaConsulta1DTOs;
+	private TableModel tablaConsulta1DTOModel;
+	
 	private Consulta1 consulta1DAO;
 	private ResultSet rsResultado;
+	
 //	private List<Consulta1DTO> listaConsulta1DTO;
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public TablaConsulta1() {
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BorderLayout(0, 0));
+		setPreferredSize(new Dimension(600, 500));
+		setBounds(100, 100, 835, 475);
 		{
-			table = new JTable();
-			contentPanel.add(table, BorderLayout.CENTER);
+			tablaConsulta1DTOModel = new TablaConsulta1Model();
 		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton btnCerrar = new JButton("Cerrar");
-				btnCerrar.setActionCommand("Cancel");
-				buttonPane.add(btnCerrar);
-			}
-		}
+		getContentPane().setLayout(null);
+		
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setBounds(10, 10, 799, 417);
+		getContentPane().add(scrollPane);
+		tablaConsulta1DTOs = new JTable();
+//		getContentPane().add(tablaConsulta1DTOs);
+		scrollPane.add(tablaConsulta1DTOs);
+		tablaConsulta1DTOs.setBounds(10, 11, 799, 415);
+		tablaConsulta1DTOs.setModel(tablaConsulta1DTOModel);
+		tablaConsulta1DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		tablaConsulta1DTOs.setRowHeight(25);
+		
 	}
 	
-	class TablaConsultaModel extends AbstractTableModel {
+	class TablaConsulta1Model extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
 		// Columnas de la tabla
-		private String[] columnNames = { "ID CLIENTE", "NOMBRE CLIENTE", "TARJETA", "EMISOR", "MONTO OPERACIONES"};
+		private String[] columnNames = {"ID CLIENTE", "NOMBRE CLIENTE", "NÚMERO DE TARJETA", "EMISOR", "MONTO OPERACIONES"};
 		// Datos que muestra la tabla
 		private ArrayList<Consulta1DTO> data = new ArrayList<Consulta1DTO>();
 
@@ -104,7 +108,7 @@ public class TablaConsulta1 extends JDialog {
 	
 	public void cargaConsulta1DTO(){
 		try{
-				TablaConsultaModel model=(TablaConsultaModel)table.getModel();
+				TablaConsulta1Model model = (TablaConsulta1Model)tablaConsulta1DTOs.getModel();
 				model.clear();
 				
 				consulta1DAO = new Consulta1();
@@ -113,11 +117,11 @@ public class TablaConsulta1 extends JDialog {
 				Consulta1DTO c1 = null;
 				while (rsResultado.next()){
 					c1 = new Consulta1DTO();
-						c1.setIdCliente(rsResultado.getInt(1));
-						c1.setNombreCliente(rsResultado.getString(2));
-						c1.setNumTarjeta(rsResultado.getString(3));
-						c1.setEmisor(rsResultado.getString(4));
-						c1.setMontoOperaciones(rsResultado.getFloat(5));
+						c1.setIdCliente(rsResultado.getInt("idCliente"));
+						c1.setNombreCliente(rsResultado.getString("nombreCliente"));
+						c1.setNumTarjeta(rsResultado.getString("numeroTarjeta"));
+						c1.setEmisor(rsResultado.getString("emisor"));
+						c1.setMontoOperaciones(rsResultado.getFloat("montoOperaciones"));
 					model.addRow(c1);
 				}
 			} catch (ClassNotFoundException e) {
