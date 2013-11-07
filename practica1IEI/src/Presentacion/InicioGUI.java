@@ -15,9 +15,9 @@ import java.sql.SQLException;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -34,10 +34,10 @@ public class InicioGUI {
 
 	private JFrame frmIeiCurso;
 	private JButton btnPoblarBD;
-	private JLabel lblActivityIndicator;
 	private JLabel lblMensajeCargaOK;
 	private JLabel lblAntesDeRealizar;
 	private JLabel lblCargaDeDatos;
+	private PoblandoBBDD dialog;
 
 
 	/**
@@ -214,13 +214,6 @@ public class InicioGUI {
 		lblMensajeCargaOK.setBounds(41, 38, 711, 40);
 		lblMensajeCargaOK.setVisible(false);
 		panelCentral.add(lblMensajeCargaOK);
-
-		
-		lblActivityIndicator = new JLabel("");
-		lblActivityIndicator.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/load.gif")));
-		lblActivityIndicator.setBounds(372, 35, 50, 50);
-		lblActivityIndicator.setVisible(false);
-		panelCentral.add(lblActivityIndicator);
 		
 		btnPoblarBD = new JButton("Poblar BBDD");
 		btnPoblarBD.setBounds(577, 38, 175, 40);
@@ -233,53 +226,65 @@ public class InicioGUI {
 				btnPoblarBD.setVisible(false);
 				lblCargaDeDatos.setVisible(false);
 				lblAntesDeRealizar.setVisible(false);
-				lblActivityIndicator.setVisible(true);
-				lblMensajeCargaOK.setText("Espere un poco... Se están poblando las bases de datos...");
-		     	lblMensajeCargaOK.setVisible(true);
-		     	
-	         	poblarBBDD();
-
-	      
-	         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
-	         	lblActivityIndicator.setVisible(false);
-				JOptionPane.showMessageDialog( null, "Datos introducidos correctamente" );
+				
+				dialog = new PoblandoBBDD();
+		     	dialog.setLocationRelativeTo(null);
+				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				dialog.setVisible(true);
+				
+	         	PoblarBBDD poblando = new PoblarBBDD();
+	         	poblando.start();
 				
 			}
 		});	
 	}
 	
-	private void poblarBBDD()
+	
+	class PoblarBBDD extends Thread
 	{
-		TablaAux ta = null;
-		Consulta1 c1 = null;
-		Consulta2 c2 = null;
-		Consulta3 c3 = null;
-		try {
-				ta = new TablaAux();
-				c1 = new Consulta1();
-				c2 = new Consulta2();
-				c3 = new Consulta3();
-				
-				ta.ejecutar();
-				ta.cerrar();
-				
-				c1.ejecutar();
-				c1.cerrar();
-				
-				c2.ejecutar();
-				c2.cerrar();
-				
-				c3.ejecutar();
-				c3.cerrar();
-				
-				System.out.println("Poblando...");
-				
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
+		public void run()
+		{
+			TablaAux ta = null;
+			Consulta1 c1 = null;
+			Consulta2 c2 = null;
+			Consulta3 c3 = null;
+			try {
+					System.out.println("Poblando...");
+					ta = new TablaAux();
+					c1 = new Consulta1();
+					c2 = new Consulta2();
+					c3 = new Consulta3();
+					
+					ta.ejecutar();
+					ta.cerrar();
+					
+					c1.ejecutar();
+					c1.cerrar();
+					
+					c2.ejecutar();
+					c2.cerrar();
+					
+					c3.ejecutar();
+					c3.cerrar();
+					
+		         	dialog.setVisible(false);
+		         	dialog.dispose();
+		         	
+		         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
+		         	lblMensajeCargaOK.setVisible(true);
+					
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				throw new RuntimeException(e1);
+			}
 		}
 	}
+
 }
