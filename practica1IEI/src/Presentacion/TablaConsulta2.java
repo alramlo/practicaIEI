@@ -31,6 +31,7 @@ public class TablaConsulta2 extends JDialog {
 		setResizable(false);
 		setPreferredSize(new Dimension(600, 500));
 		setBounds(100, 100, 835, 475);
+		setLocationRelativeTo(null);
 		{
 			tablaConsulta2DTOModel = new TablaConsulta2Model();
 			tablaConsulta2DTOs = new JTable();

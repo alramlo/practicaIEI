@@ -8,6 +8,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import javax.swing.Box;
@@ -31,6 +33,12 @@ import Logica.TablaAux;
 public class InicioGUI {
 
 	private JFrame frmIeiCurso;
+	private JButton btnPoblarBD;
+	private JLabel lblActivityIndicator;
+	private JLabel lblMensajeCargaOK;
+	private JLabel lblAntesDeRealizar;
+	private JLabel lblCargaDeDatos;
+
 
 	/**
 	 * Launch the application.
@@ -65,6 +73,7 @@ public class InicioGUI {
 		frmIeiCurso.setMaximumSize(new Dimension(800, 600));
 		frmIeiCurso.setTitle("IEI Curso 2013-2014");
 		frmIeiCurso.setBounds(100, 100, 800, 600);
+		frmIeiCurso.setLocationRelativeTo(null);
 		frmIeiCurso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelNorte = new JPanel();
@@ -84,6 +93,16 @@ public class InicioGUI {
 		panelNorte.add(horizontalStrut);
 		
 		JLabel lblIconInfo = new JLabel("");
+		lblIconInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				InfoEquipo ventanaEquipo = new InfoEquipo();
+				ventanaEquipo.setModal(true);
+				ventanaEquipo.setLocationRelativeTo(null);
+				ventanaEquipo.setVisible(true);
+			}
+		});
+		
 		lblIconInfo.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/information32x32.png")));
 		panelNorte.add(lblIconInfo);
 		
@@ -172,22 +191,22 @@ public class InicioGUI {
 		btnVerC3.setBounds(268, 53, 175, 40);
 		panelConsulta3.add(btnVerC3);
 		
-		final JLabel lblCargaDeDatos = new JLabel("Carga de datos :\r\n");
+		lblCargaDeDatos = new JLabel("Carga de datos :\r\n");
 		lblCargaDeDatos.setVerticalAlignment(SwingConstants.TOP);
 		lblCargaDeDatos.setForeground(Color.RED);
 		lblCargaDeDatos.setBounds(577, 21, 175, 26);
-		panelCentral.add(lblCargaDeDatos);
 		lblCargaDeDatos.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblCargaDeDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCargaDeDatos.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelCentral.add(lblCargaDeDatos);
 		
-		final JLabel lblAntesDeRealizar = new JLabel("Antes de realizar las consultas debe cargar los datos de las bases de datos\r\n");
+		lblAntesDeRealizar = new JLabel("Antes de realizar las consultas debe cargar los datos de las bases de datos\r\n");
 		lblAntesDeRealizar.setForeground(Color.GRAY);
 		lblAntesDeRealizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblAntesDeRealizar.setBounds(41, 38, 526, 40);
 		panelCentral.add(lblAntesDeRealizar);
 		
-		final JLabel lblMensajeCargaOK = new JLabel("");
+		lblMensajeCargaOK = new JLabel("");
 		lblMensajeCargaOK.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblMensajeCargaOK.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensajeCargaOK.setForeground(Color.RED);
@@ -195,57 +214,72 @@ public class InicioGUI {
 		lblMensajeCargaOK.setBounds(41, 38, 711, 40);
 		lblMensajeCargaOK.setVisible(false);
 		panelCentral.add(lblMensajeCargaOK);
-		
-		final JButton btnPoblarBD = new JButton("Poblar BBDD");
-		btnPoblarBD.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				btnPoblarBD.setVisible(false);
-				lblCargaDeDatos.setVisible(false);
-				lblAntesDeRealizar.setVisible(false);
-				lblMensajeCargaOK.setText("Espere un poco... Se están poblando las bases de datos...");
-	         	lblMensajeCargaOK.setVisible(true);
-			
-				TablaAux ta = null;
-				Consulta1 c1 = null;
-				Consulta2 c2 = null;
-				Consulta3 c3 = null;
-				try {
-						ta = new TablaAux();
-						c1 = new Consulta1();
-						c2 = new Consulta2();
-						c3 = new Consulta3();
-						
-						ta.ejecutar();
-						ta.cerrar();
-						
-						c1.ejecutar();
-						c1.cerrar();
-						
-						c2.ejecutar();
-						c2.cerrar();
-						
-						c3.ejecutar();
-						c3.cerrar();
-						
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
-	         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
-				JOptionPane.showMessageDialog( null, "Datos introducidos correctamente" );
-				
-			}
-		});
+		
+		lblActivityIndicator = new JLabel("");
+		lblActivityIndicator.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/load.gif")));
+		lblActivityIndicator.setBounds(372, 35, 50, 50);
+		lblActivityIndicator.setVisible(false);
+		panelCentral.add(lblActivityIndicator);
+		
+		btnPoblarBD = new JButton("Poblar BBDD");
 		btnPoblarBD.setBounds(577, 38, 175, 40);
 		panelCentral.add(btnPoblarBD);
 		btnPoblarBD.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/introBD.png")));
 		btnPoblarBD.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		
+		btnPoblarBD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+         	
+				btnPoblarBD.setVisible(false);
+				lblCargaDeDatos.setVisible(false);
+				lblAntesDeRealizar.setVisible(false);
+				lblActivityIndicator.setVisible(true);
+				lblMensajeCargaOK.setText("Espere un poco... Se están poblando las bases de datos...");
+		     	lblMensajeCargaOK.setVisible(true);
+		     	
+	         	poblarBBDD();
+
+	      
+	         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
+	         	lblActivityIndicator.setVisible(false);
+				JOptionPane.showMessageDialog( null, "Datos introducidos correctamente" );
+				
+			}
+		});	
+	}
+	
+	private void poblarBBDD()
+	{
+		TablaAux ta = null;
+		Consulta1 c1 = null;
+		Consulta2 c2 = null;
+		Consulta3 c3 = null;
+		try {
+				ta = new TablaAux();
+				c1 = new Consulta1();
+				c2 = new Consulta2();
+				c3 = new Consulta3();
+				
+				ta.ejecutar();
+				ta.cerrar();
+				
+				c1.ejecutar();
+				c1.cerrar();
+				
+				c2.ejecutar();
+				c2.cerrar();
+				
+				c3.ejecutar();
+				c3.cerrar();
+				
+				System.out.println("Poblando...");
+				
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
