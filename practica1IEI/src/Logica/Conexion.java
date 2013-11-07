@@ -3,9 +3,6 @@ package Logica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
-
 public abstract class Conexion {
 	
 	protected Connection mysql;
