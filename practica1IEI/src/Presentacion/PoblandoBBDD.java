@@ -25,11 +25,10 @@ public class PoblandoBBDD extends JDialog {
 		panel.setLayout(null);
 		
 		JLabel lblespereUnPoco = new JLabel("Cargando los datos...");
-//		lblespereUnPoco.setForeground(new Color(43, 151, 214));
-		lblespereUnPoco.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblespereUnPoco.setFont(new Font("Verdana", Font.BOLD, 19));
 		lblespereUnPoco.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblespereUnPoco.setHorizontalAlignment(SwingConstants.CENTER);
-		lblespereUnPoco.setBounds(10, 130, 375, 37);
+		lblespereUnPoco.setBounds(10, 122, 375, 47);
 		panel.add(lblespereUnPoco);
 		
 		JLabel label = new JLabel("");
@@ -37,7 +36,7 @@ public class PoblandoBBDD extends JDialog {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Verdana", Font.PLAIN, 14));
 		label.setIcon(new ImageIcon(PoblandoBBDD.class.getResource("/Resouces/load60x60CuadradoFondoD6D9E0.gif")));
-		label.setBounds(167, 59, 60, 60);
+		label.setBounds(167, 51, 60, 60);
 		panel.add(label);
 
 	}
