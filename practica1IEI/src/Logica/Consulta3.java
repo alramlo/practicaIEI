@@ -33,8 +33,6 @@ public class Consulta3 extends Conexion{
 			//Listado de clientes con montos superiores a 5000
 			clientes=s.executeQuery("SELECT * FROM mydb.listadoclientes WHERE montoOperaciones>5000");
 			
-			
-			
 			while(clientes.next()){
 					
 
