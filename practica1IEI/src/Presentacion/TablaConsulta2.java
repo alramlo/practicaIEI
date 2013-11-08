@@ -14,60 +14,59 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import Logica.Consulta1;
-import Modelo.Consulta1DTO;
+import Logica.Consulta2;
+import Modelo.Consulta2DTO;
 
-public class TablaConsulta1 extends JDialog {
+public class TablaConsulta2 extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTable tablaConsulta1DTOs;
-	private TableModel tablaConsulta1DTOModel;
+	private JTable tablaConsulta2DTOs;
+	private TableModel tablaConsulta2DTOModel;
 	
-	private Consulta1 consulta1DAO;
+	private Consulta2 consulta2DAO;
 	private ResultSet rsResultado;
 
-	public TablaConsulta1() {
+	public TablaConsulta2() {
 		setResizable(false);
 		setPreferredSize(new Dimension(600, 500));
 		setBounds(100, 100, 835, 475);
 		setLocationRelativeTo(null);
 		{
-			tablaConsulta1DTOModel = new TablaConsulta1Model();
-			tablaConsulta1DTOs = new JTable();
+			tablaConsulta2DTOModel = new TablaConsulta2Model();
+			tablaConsulta2DTOs = new JTable();
 			
-			tablaConsulta1DTOs.setBounds(10, 11, 799, 415);
-			tablaConsulta1DTOs.setModel(tablaConsulta1DTOModel);
-			tablaConsulta1DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-			tablaConsulta1DTOs.setRowHeight(25);	
-
+			tablaConsulta2DTOs.setBounds(10, 11, 799, 415);
+			tablaConsulta2DTOs.setModel(tablaConsulta2DTOModel);
+			tablaConsulta2DTOs.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+			tablaConsulta2DTOs.setRowHeight(25);
+			
 			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 			centerRenderer.setHorizontalAlignment( JLabel.LEFT );
-			for(int i=0; i<5; i++)
+			for(int i=0; i<6; i++)
 			{
-				tablaConsulta1DTOs.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+				tablaConsulta2DTOs.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
 			}
-			
 		}
 		
 		getContentPane().setLayout(null);
-		JScrollPane scrollPane = new JScrollPane(tablaConsulta1DTOs);
-//		scrollPane.add(tablaConsulta1DTOs);
+		JScrollPane scrollPane = new JScrollPane(tablaConsulta2DTOs);
+//		scrollPane.add(tablaConsulta2DTOs);
 		scrollPane.setBounds(10, 10, 799, 417);
 		getContentPane().add(scrollPane);
 		
-		setTitle("IEI Consulta 1 - Listado con los clientes y el monto total de las transacciones de su tarjeta:");
+		setTitle("IEI Consulta 2 - Listado de transacciones que no tienen cliente asociado:");
 		
 		
 	}
 	
-	class TablaConsulta1Model extends AbstractTableModel {
+	class TablaConsulta2Model extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
 		// Columnas de la tabla
-		private String[] columnas = {"ID CLIENTE", "NOMBRE CLIENTE", "NÚMERO DE TARJETA", "EMISOR", "MONTO OPERACIONES"};
+		private String[] columnas = {"ID TRANSACCIÓN", "DESCRIPCIÓN OPERACIÓN", "FECHA", "IMPORTE", "NÚMERO TARJETA", "EMISOR TARJETA"};
 		// Datos que muestra la tabla
-		private ArrayList<Consulta1DTO> data = new ArrayList<Consulta1DTO>();
+		private ArrayList<Consulta2DTO> data = new ArrayList<Consulta2DTO>();
 
 		public int getColumnCount() {
 			return columnas.length;
@@ -80,13 +79,14 @@ public class TablaConsulta1 extends JDialog {
 		}
 		// Este método se dispara cada vez que la tabla necesita el valor de un campo
 		public Object getValueAt(int row, int col) {
-			Consulta1DTO c1 = data.get(row);
+			Consulta2DTO c2 = data.get(row);
 			switch(col){
-			case 0: return c1.getIdCliente();
-			case 1: return c1.getNombreCliente();
-			case 2: return c1.getNumTarjeta();
-			case 3: return c1.getEmisor();
-			case 4: return c1.getMontoOperaciones();
+			case 0: return c2.getIdTransaccion();
+			case 1: return c2.getDescripcionOperacion();
+			case 2: return c2.getFecha();
+			case 3: return c2.getImporte();
+			case 4: return c2.getNumTarjeta();
+			case 5: return c2.getEmisor();
 			default: return null;
 			}
 		}
@@ -102,7 +102,7 @@ public class TablaConsulta1 extends JDialog {
 		public Class<? extends Object>getColumnClass(int c) {
 			return getValueAt(0, c).getClass();
 		}
-		public void addRow(Consulta1DTO row) {
+		public void addRow(Consulta2DTO row) {
 			data.add(row);
 			this.fireTableDataChanged();
 		}
@@ -112,26 +112,24 @@ public class TablaConsulta1 extends JDialog {
 		}
 	}
 	
-	public void cargaConsulta1DTO(){
+	public void cargaConsulta2DTO(){
 		try{
-				TablaConsulta1Model model = (TablaConsulta1Model)tablaConsulta1DTOs.getModel();
+				TablaConsulta2Model model = (TablaConsulta2Model)tablaConsulta2DTOs.getModel();
 				model.clear();
 				
-				consulta1DAO = new Consulta1();
-				rsResultado = consulta1DAO.getResultado();
-				Consulta1DTO c1 = null;
+				consulta2DAO = new Consulta2();
+				rsResultado = consulta2DAO.getResultado();
+				Consulta2DTO c2 = null;
 				while (rsResultado.next()){
-					c1 = new Consulta1DTO();
-						c1.setIdCliente(rsResultado.getInt("idCliente"));
-						c1.setNombreCliente(rsResultado.getString("nombreCliente"));
-						c1.setNumTarjeta(rsResultado.getString("numeroTarjeta"));
-						c1.setEmisor(rsResultado.getString("emisor"));
-						c1.setMontoOperaciones(rsResultado.getFloat("montoOperaciones"));
-					model.addRow(c1);
+					c2 = new Consulta2DTO();
+						c2.setIdTransaccion(rsResultado.getInt("idTrans"));
+						c2.setDescripcionOperacion(rsResultado.getString("descr"));
+						c2.setFecha(rsResultado.getDate("fecha"));
+						c2.setImporte(rsResultado.getFloat("importe"));
+						c2.setNumTarjeta(rsResultado.getString("numeroTarjeta"));
+						c2.setEmisor(rsResultado.getString("emisorTarjeta"));
+					model.addRow(c2);
 				}
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

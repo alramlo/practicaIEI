@@ -5,7 +5,7 @@ public class Consulta3DTO {
 	private int idOperacion;
 	private String numTarjeta;
 	private String emisor;
-	private double importeTotal;
+	private float importeTotal;
 	
 	
 	public int getIdOperacion() {
@@ -26,10 +26,10 @@ public class Consulta3DTO {
 	public void setEmisor(String emisor) {
 		this.emisor = emisor;
 	}
-	public double getImporteTotal() {
+	public float getImporteTotal() {
 		return importeTotal;
 	}
-	public void setImporteTotal(double importeTotal) {
+	public void setImporteTotal(float importeTotal) {
 		this.importeTotal = importeTotal;
 	}
 	

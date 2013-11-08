@@ -8,18 +8,19 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -32,6 +33,12 @@ import Logica.TablaAux;
 public class InicioGUI {
 
 	private JFrame frmIeiCurso;
+	private JButton btnPoblarBD;
+	private JLabel lblMensajeCargaOK;
+	private JLabel lblAntesDeRealizar;
+	private JLabel lblCargaDeDatos;
+	private PoblandoBBDD dialog;
+
 
 	/**
 	 * Launch the application.
@@ -66,6 +73,7 @@ public class InicioGUI {
 		frmIeiCurso.setMaximumSize(new Dimension(800, 600));
 		frmIeiCurso.setTitle("IEI Curso 2013-2014");
 		frmIeiCurso.setBounds(100, 100, 800, 600);
+		frmIeiCurso.setLocationRelativeTo(null);
 		frmIeiCurso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelNorte = new JPanel();
@@ -85,6 +93,16 @@ public class InicioGUI {
 		panelNorte.add(horizontalStrut);
 		
 		JLabel lblIconInfo = new JLabel("");
+		lblIconInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				InfoEquipo ventanaEquipo = new InfoEquipo();
+				ventanaEquipo.setModal(true);
+				ventanaEquipo.setLocationRelativeTo(null);
+				ventanaEquipo.setVisible(true);
+			}
+		});
+		
 		lblIconInfo.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/information32x32.png")));
 		panelNorte.add(lblIconInfo);
 		
@@ -133,6 +151,14 @@ public class InicioGUI {
 		panelConsulta2.add(lblListadoDeTransacciones_1);
 		
 		JButton btnVerC2 = new JButton("Ver Consulta 2");
+		btnVerC2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaConsulta2 ventanaTabla2 = new TablaConsulta2();
+				ventanaTabla2.setModal(true);
+				ventanaTabla2.cargaConsulta2DTO();
+				ventanaTabla2.setVisible(true);
+			}
+		});
 		btnVerC2.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/searchDB.png")));
 		btnVerC2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVerC2.setBounds(268, 53, 175, 40);
@@ -152,27 +178,35 @@ public class InicioGUI {
 		panelConsulta3.add(lblListadoDeTarjetas_1);
 		
 		JButton btnVerC3 = new JButton("Ver Consulta 3");
+		btnVerC3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaConsulta3 ventanaTabla3 = new TablaConsulta3();
+				ventanaTabla3.setModal(true);
+				ventanaTabla3.cargaConsulta3DTO();
+				ventanaTabla3.setVisible(true);
+			}
+		});
 		btnVerC3.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/searchDB.png")));
 		btnVerC3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVerC3.setBounds(268, 53, 175, 40);
 		panelConsulta3.add(btnVerC3);
 		
-		final JLabel lblCargaDeDatos = new JLabel("Carga de datos :\r\n");
+		lblCargaDeDatos = new JLabel("Carga de datos :\r\n");
 		lblCargaDeDatos.setVerticalAlignment(SwingConstants.TOP);
 		lblCargaDeDatos.setForeground(Color.RED);
 		lblCargaDeDatos.setBounds(577, 21, 175, 26);
-		panelCentral.add(lblCargaDeDatos);
 		lblCargaDeDatos.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblCargaDeDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCargaDeDatos.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panelCentral.add(lblCargaDeDatos);
 		
-		final JLabel lblAntesDeRealizar = new JLabel("Antes de realizar las consultas debe cargar los datos de las bases de datos\r\n");
+		lblAntesDeRealizar = new JLabel("Antes de realizar las consultas debe cargar los datos de las bases de datos\r\n");
 		lblAntesDeRealizar.setForeground(Color.GRAY);
 		lblAntesDeRealizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblAntesDeRealizar.setBounds(41, 38, 526, 40);
 		panelCentral.add(lblAntesDeRealizar);
 		
-		final JLabel lblMensajeCargaOK = new JLabel("");
+		lblMensajeCargaOK = new JLabel("");
 		lblMensajeCargaOK.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblMensajeCargaOK.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensajeCargaOK.setForeground(Color.RED);
@@ -181,56 +215,76 @@ public class InicioGUI {
 		lblMensajeCargaOK.setVisible(false);
 		panelCentral.add(lblMensajeCargaOK);
 		
-		final JButton btnPoblarBD = new JButton("Poblar BBDD");
-		btnPoblarBD.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				btnPoblarBD.setVisible(false);
-				lblCargaDeDatos.setVisible(false);
-				lblAntesDeRealizar.setVisible(false);
-				lblMensajeCargaOK.setText("Espere un poco... Se están poblando las bases de datos...");
-	         	lblMensajeCargaOK.setVisible(true);
-			
-				TablaAux ta = null;
-				Consulta1 c1 = null;
-				Consulta2 c2 = null;
-				Consulta3 c3 = null;
-				try {
-						ta = new TablaAux();
-						c1 = new Consulta1();
-						c2 = new Consulta2();
-						c3 = new Consulta3();
-						
-						ta.ejecutar();
-						ta.cerrar();
-						
-						c1.ejecutar();
-						c1.cerrar();
-						
-						c2.ejecutar();
-						c2.cerrar();
-						
-						c3.ejecutar();
-						c3.cerrar();
-						
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-	         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
-				JOptionPane.showMessageDialog( null, "Datos introducidos correctamente" );
-				
-			}
-		});
+		btnPoblarBD = new JButton("Poblar BBDD");
 		btnPoblarBD.setBounds(577, 38, 175, 40);
 		panelCentral.add(btnPoblarBD);
 		btnPoblarBD.setIcon(new ImageIcon(InicioGUI.class.getResource("/Resouces/introBD.png")));
 		btnPoblarBD.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		
+		btnPoblarBD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+         	
+				btnPoblarBD.setVisible(false);
+				lblCargaDeDatos.setVisible(false);
+				lblAntesDeRealizar.setVisible(false);
+				
+				dialog = new PoblandoBBDD();
+		     	dialog.setLocationRelativeTo(null);
+				dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				dialog.setVisible(true);
+				
+	         	PoblarBBDD poblando = new PoblarBBDD();
+	         	poblando.start();
+				
+			}
+		});	
 	}
+	
+	
+	class PoblarBBDD extends Thread
+	{
+		
+		public void run()
+		{
+			TablaAux ta = null;
+			Consulta1 c1 = null;
+			Consulta2 c2 = null;
+			Consulta3 c3 = null;
+			try {
+					System.out.println("Poblando...");
+					ta = new TablaAux();
+					c1 = new Consulta1();
+					c2 = new Consulta2();
+					c3 = new Consulta3();
+					
+					ta.ejecutar();
+					ta.cerrar();
+					
+					c1.ejecutar();
+					c1.cerrar();
+					
+					c2.ejecutar();
+					c2.cerrar();
+					
+					c3.ejecutar();
+					c3.cerrar();
+					
+		         	dialog.setVisible(false);
+		         	dialog.dispose();
+		         	
+		         	lblMensajeCargaOK.setText("Las bases de datos han sido pobladas correctamente");
+		         	lblMensajeCargaOK.setVisible(true);
+					
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				throw new RuntimeException(e1);
+			}
+		}
+	}
+
 }
