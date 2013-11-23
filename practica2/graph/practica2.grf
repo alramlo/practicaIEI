@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Fri Nov 22 20:14:47 GMT+01:00 2013" modifiedBy="Alberto" name="practica2" revision="1.33" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata2">
+<Record fieldDelimiter=";" name="clientes" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="IdCliente" nullable="true" shift="0" size="11" type="integer"/>
+<Field eofAsDelimiter="false" name="NumTarjeta" nullable="true" shift="0" size="45" type="string"/>
+<Field eofAsDelimiter="false" name="FechaAlta" nullable="true" shift="0" size="45" type="string"/>
+<Field eofAsDelimiter="false" name="FechaCaducidad" nullable="true" shift="0" size="45" type="string"/>
+<Field eofAsDelimiter="false" name="ImportMax" nullable="true" shift="0" size="12" type="number"/>
+<Field eofAsDelimiter="false" name="EmisorTarjeta" nullable="true" shift="0" size="45" type="string"/>
+<Field eofAsDelimiter="false" name="NombreCliente" nullable="true" shift="0" size="45" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3" previewAttachment="${PROJECT}/conversion.txt" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" label="conversion.txt" name="conversion_txt" previewAttachment="${PROJECT}/conversion.txt" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="0" type="delimited">
+<Field name="CodMoneda" type="string"/>
+<Field eofAsDelimiter="false" name="Valor" type="number"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata5" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" name="listadoclientes" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="idCliente" nullable="true" shift="0" size="0" type="integer"/>
+<Field eofAsDelimiter="false" name="nombreCliente" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="numeroTarjeta" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="emisor" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="montoOperaciones" nullable="true" shift="0" size="0" type="number"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter=";" name="transacciones" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="IdTransaccion" nullable="true" shift="0" size="11" type="integer"/>
+<Field eofAsDelimiter="false" name="NumeroOperacion" nullable="true" shift="0" size="11" type="integer"/>
+<Field eofAsDelimiter="false" name="DescripcionOp" nullable="true" shift="0" size="50" type="string"/>
+<Field eofAsDelimiter="false" format="yyyy-MM-dd HH:mm:ss" name="Fecha" nullable="true" shift="0" size="19" type="date"/>
+<Field eofAsDelimiter="false" name="Lugar" nullable="true" shift="0" size="45" type="string"/>
+<Field eofAsDelimiter="false" name="Importe" nullable="true" shift="0" size="12" type="number"/>
+<Field eofAsDelimiter="false" name="CodMoneda" nullable="true" shift="0" size="10" type="string"/>
+<Field eofAsDelimiter="false" name="NumTarjeta" nullable="true" shift="0" size="20" type="string"/>
+<Field eofAsDelimiter="false" name="EmisorTarjeta" nullable="true" shift="0" size="45" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata0" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" name="TRANSACCIONES" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="IDTRANSACCION" nullable="true" shift="0" size="10" type="integer"/>
+<Field eofAsDelimiter="false" name="DESCRIPCIONOP" nullable="true" shift="0" size="200" type="string"/>
+<Field eofAsDelimiter="false" format="yyyy-MM-dd" name="FECHA" nullable="true" shift="0" size="10" type="date"/>
+<Field eofAsDelimiter="false" name="LUGAR" nullable="true" shift="0" size="30" type="string"/>
+<Field eofAsDelimiter="false" length="8" name="IMPORTE" nullable="true" scale="2" shift="0" size="0" type="number"/>
+<Field eofAsDelimiter="false" name="CodMoneda" nullable="true" shift="0" size="20" type="string"/>
+<Field eofAsDelimiter="false" name="numTarjeta" nullable="true" shift="0" size="20" type="string"/>
+<Field eofAsDelimiter="false" name="EMISORTARJETA" nullable="true" shift="0" size="20" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata4" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" name="transaccionesaux" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="IdTransaccion" nullable="true" shift="0" size="0" type="integer"/>
+<Field eofAsDelimiter="false" name="NumTarjeta" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" format="yyyy-MM-dd" name="Fecha" nullable="true" shift="0" size="0" type="date"/>
+<Field eofAsDelimiter="false" name="EmisorTarjeta" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="Importe" nullable="true" shift="0" size="0" type="number"/>
+<Field eofAsDelimiter="false" name="DescripcionOp" nullable="true" shift="0" size="0" type="string"/>
+</Record>
+</Metadata>
+<Connection database="DERBY" dbURL="jdbc:derby://localhost:1527/c:/DerbyDB/DB2;" id="JDBC0" jdbcSpecific="DERBY" name="ConexionDerby" password="alberto" type="JDBC" user="alberto"/>
+<Connection database="MYSQL" dbURL="jdbc:mysql://localhost:3306/" id="JDBC1" jdbcSpecific="MYSQL" name="ConexionMySQL" type="JDBC" user="root"/>
+<Property fileURL="workspace.prm" id="GraphParameter0"/>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node aggregateKey="idCliente;nombreCliente;numeroTarjeta;emisor;montoOperaciones" enabled="enabled" guiName="Aggregate" guiX="875" guiY="300" id="AGGREGATE" mapping="$idCliente:=first($idCliente);$nombreCliente:=first($nombreCliente);$numeroTarjeta:=first($numeroTarjeta);$emisor:=first($emisor);$montoOperaciones:=sum($montoOperaciones);" sorted="false" type="AGGREGATE"/>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="DBInputTable" guiX="56" guiY="39" id="DBINPUT_TABLE" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select * from \`db1\`.\`transacciones\`]]></attr>
+</Node>
+<Node dbConnection="JDBC0" enabled="enabled" guiName="DBInputTable" guiX="56" guiY="-60" id="DBINPUT_TABLE1" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select * from APP.TRANSACCIONES]]></attr>
+</Node>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="DBInputTable Lectura de clientes" guiX="46" guiY="307" id="DBINPUT_TABLE_LECTURA_DE_CLIENTES" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select * from \`db3\`.\`clientes\`]]></attr>
+</Node>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="DBOutputTable" guiX="1118" guiY="281" id="DBOUTPUT_TABLE" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`listadoclientes\` (\`idCliente\`, \`nombreCliente\`, \`numeroTarjeta\`, \`emisor\`, \`montoOperaciones\`)
+VALUES ($idCliente, $nombreCliente, $numeroTarjeta, $emisor, $montoOperaciones)]]></attr>
+</Node>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="DBOutputTable" guiX="1020" guiY="53" id="DBOUTPUT_TABLE1" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`transaccionesaux\` (\`idTrans\`, \`tarjeta\`, \`fecha\`, \`emisor\`, \`importe\`, \`descr\`)
+VALUES ($?, $?, $?, $?, $?, $?)]]></attr>
+</Node>
+<Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="400" guiY="281" id="DEDUP" type="DEDUP"/>
+<Node enabled="enabled" guiName="ExtHashJoin" guiX="634" guiY="281" id="EXT_HASH_JOIN1" joinKey="$NumTarjeta=$NumTarjeta;" slaveDuplicates="true" type="EXT_HASH_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.idCliente = $in.1.IdCliente;
+	$out.0.nombreCliente = $in.1.NombreCliente;
+	$out.0.numeroTarjeta = $in.0.NumTarjeta;
+	$out.0.numeroTarjeta = $in.1.NumTarjeta;
+	$out.0.emisor = $in.0.EmisorTarjeta;
+	$out.0.montoOperaciones = $in.0.Importe;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="ExtSort" guiX="737" guiY="53" id="EXT_SORT" sortKey="NumTarjeta(a)" type="EXT_SORT"/>
+<Node enabled="enabled" guiName="Merge" guiX="561" guiY="15" id="MERGE" mergeKey="IdTransaccion" type="MERGE"/>
+<Node enabled="enabled" guiName="Reformat" guiX="323" guiY="53" id="REFORMAT" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.IdTransaccion = $in.0.IdTransaccion;
+	$out.0.DescripcionOp = $in.0.DescripcionOp;
+	$out.0.Fecha = $in.0.Fecha;
+	$out.0.Importe = $in.0.Importe;
+	$out.0.NumTarjeta = $in.0.NumTarjeta;
+	$out.0.EmisorTarjeta = $in.0.EmisorTarjeta;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Reformat" guiX="323" guiY="-60" id="REFORMAT1" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.IdTransaccion = $in.0.IDTRANSACCION;
+	$out.0.DescripcionOp = $in.0.DESCRIPCIONOP;
+	$out.0.Fecha = $in.0.FECHA;
+	$out.0.Importe = $in.0.IMPORTE;
+	$out.0.NumTarjeta = $in.0.numTarjeta;
+	$out.0.EmisorTarjeta = $in.0.EMISORTARJETA;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node enabled="enabled" fileURL="${PROJECT}/TarjetasRepetidas.txt" guiName="UniversalDataWriter" guiX="561" guiY="433" id="UNIVERSAL_DATA_WRITER" type="DATA_WRITER"/>
+<Edge fromNode="AGGREGATE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge25" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="DBOUTPUT_TABLE:0"/>
+<Edge fromNode="DBINPUT_TABLE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge27" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="REFORMAT:0"/>
+<Edge fromNode="DBINPUT_TABLE1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge29" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT1:0"/>
+<Edge fromNode="DBINPUT_TABLE_LECTURA_DE_CLIENTES:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 0 (out)" toNode="DEDUP:0"/>
+<Edge fromNode="DEDUP:0" guiBendpoints="" guiRouter="Manhattan" id="Edge6" inPort="Port 1 (slave)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN1:1"/>
+<Edge fromNode="DEDUP:1" guiBendpoints="" guiRouter="Manhattan" id="Edge16" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 1 (duplicate)" toNode="UNIVERSAL_DATA_WRITER:0"/>
+<Edge fromNode="EXT_HASH_JOIN1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge19" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
+<Edge fromNode="EXT_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge7" inPort="Port 0 (driver)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN1:0"/>
+<Edge fromNode="EXT_SORT:1" guiBendpoints="" guiRouter="Manhattan" id="Edge31" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 1 (out)" toNode="DBOUTPUT_TABLE1:0"/>
+<Edge fromNode="MERGE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge18" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_SORT:0"/>
+<Edge fromNode="REFORMAT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge28" inPort="Port 1 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="MERGE:1"/>
+<Edge fromNode="REFORMAT1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge30" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="MERGE:0"/>
+</Phase>
+</Graph>
