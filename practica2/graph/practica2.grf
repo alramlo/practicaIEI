@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Mon Nov 25 16:55:25 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.59" showComponentDetails="true">
+<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Tue Nov 26 17:21:57 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.66" showComponentDetails="true">
 <Global>
 <Metadata id="Metadata2">
 <Record fieldDelimiter=";" name="clientes" recordDelimiter="\n" recordSize="-1" type="delimited">
@@ -59,6 +59,17 @@
 <Field eofAsDelimiter="false" name="EmisorTarjeta" nullable="true" shift="0" size="0" type="string"/>
 <Field eofAsDelimiter="false" name="Importe" nullable="true" shift="0" size="0" type="number"/>
 <Field eofAsDelimiter="false" name="DescripcionOp" nullable="true" shift="0" size="0" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata6" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" name="transaccionessin" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\n" recordSize="-1" type="delimited">
+<Field eofAsDelimiter="false" name="id" nullable="true" shift="0" size="0" type="integer"/>
+<Field eofAsDelimiter="false" name="idTrans" nullable="true" shift="0" size="0" type="integer"/>
+<Field eofAsDelimiter="false" name="descr" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" format="yyyy-MM-dd HH:mm:ss" name="fecha" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="importe" nullable="true" shift="0" size="0" type="number"/>
+<Field eofAsDelimiter="false" name="numeroTarjeta" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="emisorTarjeta" nullable="true" shift="0" size="0" type="string"/>
 </Record>
 </Metadata>
 <Connection database="DERBY" dbURL="jdbc:derby://localhost:1527/c:/DerbyDB/DB2;" id="JDBC0" jdbcSpecific="DERBY" name="ConexionDerby" password="alberto" type="JDBC" user="alberto"/>
@@ -234,16 +245,13 @@ VALUES ($IdTransaccion, $NumTarjeta, $Fecha, $EmisorTarjeta, $Importe, $Descripc
 <Edge fromNode="UNIVERSAL_DATA_READER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge33" inPort="Port 1 (slave)" metadata="Metadata3" outPort="Port 0 (output)" toNode="EXT_HASH_JOIN2:1"/>
 </Phase>
 <Phase number="1">
-<Node aggregateKey="idCliente;nombreCliente;numeroTarjeta;emisor;montoOperaciones" enabled="enabled" guiName="Aggregate" guiX="875" guiY="300" id="AGGREGATE" mapping="$idCliente:=first($idCliente);$nombreCliente:=first($nombreCliente);$numeroTarjeta:=first($numeroTarjeta);$emisor:=first($emisor);$montoOperaciones:=sum($montoOperaciones);" sorted="false" type="AGGREGATE"/>
-<Node dbConnection="JDBC1" enabled="enabled" guiName="Clientes de MySQL" guiX="46" guiY="307" id="CLIENTES_DE_MY_SQL" type="DB_INPUT_TABLE">
+<Node aggregateKey="idCliente;nombreCliente;numeroTarjeta;emisor;montoOperaciones" enabled="enabled" guiName="Aggregate" guiX="906" guiY="157" id="AGGREGATE" mapping="$idCliente:=first($idCliente);$nombreCliente:=first($nombreCliente);$numeroTarjeta:=first($numeroTarjeta);$emisor:=first($emisor);$montoOperaciones:=sum($montoOperaciones);" sorted="false" type="AGGREGATE"/>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="Clientes de MySQL" guiX="16" guiY="430" id="CLIENTES_DE_MY_SQL" type="DB_INPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[select * from \`db3\`.\`clientes\`]]></attr>
 </Node>
-<Node dbConnection="JDBC1" enabled="enabled" guiName="DBInputTable" guiX="56" guiY="154" id="DBINPUT_TABLE" type="DB_INPUT_TABLE">
-<attr name="sqlQuery"><![CDATA[select $IdTransaccion:=\`mydb\`.\`transaccionesaux\`.\`idTrans\`,$NumTarjeta:=\`mydb\`.\`transaccionesaux\`.\`tarjeta\`,$Fecha:=\`mydb\`.\`transaccionesaux\`.\`fecha\`,$EmisorTarjeta:=\`mydb\`.\`transaccionesaux\`.\`emisor\`,$Importe:=\`mydb\`.\`transaccionesaux\`.\`importe\`,$DescripcionOp:=\`mydb\`.\`transaccionesaux\`.\`descr\`
-from \`mydb\`.\`transaccionesaux\`]]></attr>
-</Node>
-<Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="372" guiY="336" id="DEDUP" type="DEDUP"/>
-<Node enabled="enabled" guiName="ExtHashJoin" guiX="634" guiY="281" id="EXT_HASH_JOIN1" joinKey="$NumTarjeta=$NumTarjeta;" slaveDuplicates="true" type="EXT_HASH_JOIN">
+<Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="514" guiY="271" id="DEDUP" type="DEDUP"/>
+<Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="514" guiY="409" id="DEDUP1" type="DEDUP"/>
+<Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="211" id="EXT_HASH_JOIN1" joinKey="$NumTarjeta=$NumTarjeta;" slaveDuplicates="true" type="EXT_HASH_JOIN">
 <attr name="transform"><![CDATA[//#CTL2
 
 // Transforms input record into output record.
@@ -277,16 +285,60 @@ function integer transform() {
 // function string getMessage() {}
 ]]></attr>
 </Node>
+<Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="475" id="EXT_HASH_JOIN3" joinKey="$NumTarjeta=$NumTarjeta" joinType="leftOuter" type="EXT_HASH_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.emisorTarjeta = $in.1.EmisorTarjeta;
+	$out.0.fecha = $in.1.Fecha;
+	$out.0.importe = $in.1.Importe;
+	$out.0.numeroTarjeta = $in.1.NumTarjeta;
+	$out.0.descr = $in.1.DescripcionOp;
+	$out.0.idTrans = $in.1.IdTransaccion;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="Tabla AUX" guiX="19" guiY="327" id="TABLA_AUX1" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select $IdTransaccion:=\`mydb\`.\`transaccionesaux\`.\`idTrans\`,$NumTarjeta:=\`mydb\`.\`transaccionesaux\`.\`tarjeta\`,$Fecha:=\`mydb\`.\`transaccionesaux\`.\`fecha\`,$EmisorTarjeta:=\`mydb\`.\`transaccionesaux\`.\`emisor\`,$Importe:=\`mydb\`.\`transaccionesaux\`.\`importe\`,$DescripcionOp:=\`mydb\`.\`transaccionesaux\`.\`descr\`
+from \`mydb\`.\`transaccionesaux\`]]></attr>
+</Node>
 <Node dbConnection="JDBC1" enabled="enabled" guiName="Tabla Clientes" guiX="1118" guiY="281" id="TABLA_CLIENTES" type="DB_OUTPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`listadoclientes\` (\`idCliente\`, \`nombreCliente\`, \`numeroTarjeta\`, \`emisor\`, \`montoOperaciones\`)
 VALUES ($idCliente, $nombreCliente, $numeroTarjeta, $emisor, $montoOperaciones)]]></attr>
 </Node>
-<Node enabled="enabled" fileURL="${PROJECT}/TarjetasRepetidas.txt" guiName="txt repetidos" guiX="561" guiY="433" id="TXT_REPETIDOS" type="DATA_WRITER"/>
+<Node dbConnection="JDBC1" enabled="enabled" guiName="TransaccionesSin" guiX="970" guiY="467" id="TRANSACCIONES_SIN" type="DB_OUTPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`transaccionessin\` (\`idTrans\`, \`descr\`, \`fecha\`, \`importe\`, \`numeroTarjeta\`, \`emisorTarjeta\`)
+VALUES ($idTrans, $descr, $fecha, $importe, $numeroTarjeta, $emisorTarjeta)]]></attr>
+</Node>
 <Edge fromNode="AGGREGATE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge25" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="TABLA_CLIENTES:0"/>
 <Edge fromNode="CLIENTES_DE_MY_SQL:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 0 (out)" toNode="DEDUP:0"/>
-<Edge fromNode="DBINPUT_TABLE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 0 (driver)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN1:0"/>
+<Edge fromNode="CLIENTES_DE_MY_SQL:1" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 1 (out)" toNode="DEDUP1:0"/>
 <Edge fromNode="DEDUP:0" guiBendpoints="" guiRouter="Manhattan" id="Edge6" inPort="Port 1 (slave)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN1:1"/>
-<Edge fromNode="DEDUP:1" guiBendpoints="" guiRouter="Manhattan" id="Edge16" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 1 (duplicate)" toNode="TXT_REPETIDOS:0"/>
+<Edge fromNode="DEDUP1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge3" inPort="Port 0 (driver)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN3:0"/>
 <Edge fromNode="EXT_HASH_JOIN1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge19" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
+<Edge fromNode="EXT_HASH_JOIN3:0" guiBendpoints="" guiRouter="Manhattan" id="Edge8" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (out)" toNode="TRANSACCIONES_SIN:0"/>
+<Edge fromNode="TABLA_AUX1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 0 (driver)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN1:0"/>
+<Edge fromNode="TABLA_AUX1:1" guiBendpoints="" guiRouter="Manhattan" id="Edge5" inPort="Port 1 (slave)" metadata="Metadata4" outPort="Port 1 (out)" toNode="EXT_HASH_JOIN3:1"/>
 </Phase>
 </Graph>
