@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Tue Nov 26 17:21:57 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.66" showComponentDetails="true">
+<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Fri Nov 29 17:03:22 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.71" showComponentDetails="true">
 <Global>
 <Metadata id="Metadata2">
 <Record fieldDelimiter=";" name="clientes" recordDelimiter="\n" recordSize="-1" type="delimited">
@@ -285,7 +285,7 @@ function integer transform() {
 // function string getMessage() {}
 ]]></attr>
 </Node>
-<Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="475" id="EXT_HASH_JOIN3" joinKey="$NumTarjeta=$NumTarjeta" joinType="leftOuter" type="EXT_HASH_JOIN">
+<Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="475" id="EXT_HASH_JOIN3" joinKey="$NumTarjeta=$NumTarjeta;$EmisorTarjeta=$EmisorTarjeta" joinType="fullOuter" type="EXT_HASH_JOIN">
 <attr name="transform"><![CDATA[//#CTL2
 
 // Transforms input record into output record.
