@@ -16,13 +16,15 @@ public class Consulta1 {
 	
 	
 	public Cliente[] getResultado() throws SQLException{
+		Conexion conexion=null;
 		try{
-			conn = Conexion.conectar();
+			conexion = new Conexion();
+			conn = conexion.conectar();
 			
 			if(conn!=null){
 				
 				s=conn.createStatement();
-				rs=s.executeQuery("SELECT * FROM mydb.listadoclientes");
+				rs=s.executeQuery("SELECT * FROM practica4.listadoclientes");
 				ArrayList list = new ArrayList();
 				while(rs.next()){
 					Cliente cliente = new Cliente();
@@ -44,7 +46,8 @@ public class Consulta1 {
 				System.out.println("Error en Consulta1.getResultado(): "+e);
 				e.printStackTrace();
 			}
-		Conexion.cerrar();
+		
+		conexion.cerrar();
 		return null;
 
 

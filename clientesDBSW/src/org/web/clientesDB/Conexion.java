@@ -5,24 +5,20 @@ import java.sql.DriverManager;
 
 public class Conexion {
 	
-	private static Connection mysql;
-	//protected Connection derby;
-	//protected String sourceDerby;
+	private Connection mysql;
+
 	
 	public Conexion(){
 			
 			this.mysql=null;	
 	}
 
-	public static Connection conectar(){
+	public Connection conectar(){
 		try{
 			
 		Class.forName("com.mysql.jdbc.Driver");
-		mysql = DriverManager.getConnection ("jdbc:mysql://localhost:3306/","root", "");
+		mysql = DriverManager.getConnection("jdbc:mysql://db4free.net/practica4", "iei2013", "123456");
 		return mysql;
-		
-		//Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-		//derby = DriverManager.getConnection(sourceDerby);
 		
 		} catch (Exception e){
 			System.out.println("Error al conectar"); 
@@ -33,7 +29,7 @@ public class Conexion {
 		
 	}
 	
-	public static void cerrar(){
+	public void cerrar(){
 		try {
 			if (mysql!=null)
 				mysql.close();
