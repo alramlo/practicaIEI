@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Fri Nov 29 17:03:22 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.71" showComponentDetails="true">
+<?xml version="1.0" encoding="UTF-8"?><Graph author="Alberto" created="Fri Nov 22 10:18:14 GMT+01:00 2013" guiVersion="3.4.2.P" id="1385112970442" licenseType="Community" modified="Tue Dec 03 16:11:08 CET 2013" modifiedBy="SERGIO" name="practica2" revision="1.80" showComponentDetails="true">
 <Global>
 <Metadata id="Metadata2">
 <Record fieldDelimiter=";" name="clientes" recordDelimiter="\n" recordSize="-1" type="delimited">
@@ -70,6 +70,7 @@
 <Field eofAsDelimiter="false" name="importe" nullable="true" shift="0" size="0" type="number"/>
 <Field eofAsDelimiter="false" name="numeroTarjeta" nullable="true" shift="0" size="0" type="string"/>
 <Field eofAsDelimiter="false" name="emisorTarjeta" nullable="true" shift="0" size="0" type="string"/>
+<Field name="cliente" type="string"/>
 </Record>
 </Metadata>
 <Connection database="DERBY" dbURL="jdbc:derby://localhost:1527/c:/DerbyDB/DB2;" id="JDBC0" jdbcSpecific="DERBY" name="ConexionDerby" password="alberto" type="JDBC" user="alberto"/>
@@ -78,79 +79,6 @@
 <Dictionary/>
 </Global>
 <Phase number="0">
-<Node enabled="enabled" guiName="ExtHashJoin" guiX="323" guiY="-287" id="EXT_HASH_JOIN" joinKey="$CodMoneda=$CodMoneda" type="EXT_HASH_JOIN">
-<attr name="transform"><![CDATA[//#CTL2
-
-// Transforms input record into output record.
-function integer transform() {
-	$out.0.IDTRANSACCION = $in.0.IDTRANSACCION;
-	$out.0.DESCRIPCIONOP = $in.0.DESCRIPCIONOP;
-	$out.0.FECHA = $in.0.FECHA;
-	$out.0.LUGAR = $in.0.LUGAR;
-	$out.0.IMPORTE = $in.0.IMPORTE*$in.1.Valor;
-	$out.0.CodMoneda = $in.0.CodMoneda;
-	$out.0.numTarjeta = $in.0.numTarjeta;
-	$out.0.EMISORTARJETA = $in.0.EMISORTARJETA;
-
-	return ALL;
-}
-
-// Called during component initialization.
-// function boolean init() {}
-
-// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
-// required by the transform. All resources allocated within this method should be released
-// by the postExecute() method.
-// function void preExecute() {}
-
-// Called only if transform() throws an exception.
-// function integer transformOnError(string errorMessage, string stackTrace) {}
-
-// Called during each graph run after the entire transform was executed. Should be used to free any resources
-// allocated within the preExecute() method.
-// function void postExecute() {}
-
-// Called to return a user-defined error message when an error occurs.
-// function string getMessage() {}
-]]></attr>
-</Node>
-<Node enabled="enabled" guiName="ExtHashJoin" guiX="329" guiY="-103" id="EXT_HASH_JOIN2" joinKey="$CodMoneda=$CodMoneda" type="EXT_HASH_JOIN">
-<attr name="transform"><![CDATA[//#CTL2
-
-// Transforms input record into output record.
-function integer transform() {
-	$out.0.IdTransaccion = $in.0.IdTransaccion;
-	$out.0.NumeroOperacion = $in.0.NumeroOperacion;
-	$out.0.DescripcionOp = $in.0.DescripcionOp;
-	$out.0.Fecha = $in.0.Fecha;
-	$out.0.Lugar = $in.0.Lugar;
-	$out.0.Importe = $in.0.Importe*$in.1.Valor;
-	$out.0.CodMoneda = $in.0.CodMoneda;
-	$out.0.NumTarjeta = $in.0.NumTarjeta;
-	$out.0.EmisorTarjeta = $in.0.EmisorTarjeta;
-
-	return ALL;
-}
-
-// Called during component initialization.
-// function boolean init() {}
-
-// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
-// required by the transform. All resources allocated within this method should be released
-// by the postExecute() method.
-// function void preExecute() {}
-
-// Called only if transform() throws an exception.
-// function integer transformOnError(string errorMessage, string stackTrace) {}
-
-// Called during each graph run after the entire transform was executed. Should be used to free any resources
-// allocated within the preExecute() method.
-// function void postExecute() {}
-
-// Called to return a user-defined error message when an error occurs.
-// function string getMessage() {}
-]]></attr>
-</Node>
 <Node enabled="enabled" guiName="ExtSort" guiX="831" guiY="-40" id="EXT_SORT" sortKey="NumTarjeta(a)" type="EXT_SORT"/>
 <Node enabled="enabled" guiName="Merge" guiX="574" guiY="-86" id="MERGE" mergeKey="IdTransaccion" type="MERGE"/>
 <Node enabled="enabled" guiName="Reformat" guiX="529" guiY="77" id="REFORMAT" type="REFORMAT">
@@ -231,18 +159,12 @@ VALUES ($IdTransaccion, $NumTarjeta, $Fecha, $EmisorTarjeta, $Importe, $Descripc
 <Node dbConnection="JDBC1" enabled="enabled" guiName="Transacciones MySQL" guiX="59" guiY="-103" id="TRANSACCIONES_MY_SQL" type="DB_INPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[select * from \`db1\`.\`transacciones\`]]></attr>
 </Node>
-<Node enabled="enabled" fileURL="${PROJECT}/conversion.txt" guiName="UniversalDataReader" guiX="57" guiY="-208" id="UNIVERSAL_DATA_READER" type="DATA_READER"/>
-<Node enabled="enabled" fileURL="${PROJECT}/conversion.txt" guiName="UniversalDataReader" guiX="60" guiY="-15" id="UNIVERSAL_DATA_READER1" type="DATA_READER"/>
-<Edge fromNode="EXT_HASH_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge13" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT1:0"/>
-<Edge fromNode="EXT_HASH_JOIN2:0" guiBendpoints="" guiRouter="Manhattan" id="Edge32" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="REFORMAT:0"/>
 <Edge fromNode="EXT_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge11" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="TABLA_AUX:0"/>
 <Edge fromNode="MERGE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge18" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_SORT:0"/>
 <Edge fromNode="REFORMAT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge28" inPort="Port 1 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="MERGE:1"/>
 <Edge fromNode="REFORMAT1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge30" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="MERGE:0"/>
-<Edge fromNode="TRANSACCIONES_DERBY:0" guiBendpoints="" guiRouter="Manhattan" id="Edge22" inPort="Port 0 (driver)" metadata="Metadata0" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:0"/>
-<Edge fromNode="TRANSACCIONES_MY_SQL:0" guiBendpoints="" guiRouter="Manhattan" id="Edge24" inPort="Port 0 (driver)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN2:0"/>
-<Edge fromNode="UNIVERSAL_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge23" inPort="Port 1 (slave)" metadata="Metadata3" outPort="Port 0 (output)" toNode="EXT_HASH_JOIN:1"/>
-<Edge fromNode="UNIVERSAL_DATA_READER1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge33" inPort="Port 1 (slave)" metadata="Metadata3" outPort="Port 0 (output)" toNode="EXT_HASH_JOIN2:1"/>
+<Edge fromNode="TRANSACCIONES_DERBY:0" guiBendpoints="" guiRouter="Manhattan" id="Edge14" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT1:0"/>
+<Edge fromNode="TRANSACCIONES_MY_SQL:0" guiBendpoints="" guiRouter="Manhattan" id="Edge15" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="REFORMAT:0"/>
 </Phase>
 <Phase number="1">
 <Node aggregateKey="idCliente;nombreCliente;numeroTarjeta;emisor;montoOperaciones" enabled="enabled" guiName="Aggregate" guiX="906" guiY="157" id="AGGREGATE" mapping="$idCliente:=first($idCliente);$nombreCliente:=first($nombreCliente);$numeroTarjeta:=first($numeroTarjeta);$emisor:=first($emisor);$montoOperaciones:=sum($montoOperaciones);" sorted="false" type="AGGREGATE"/>
@@ -251,6 +173,10 @@ VALUES ($IdTransaccion, $NumTarjeta, $Fecha, $EmisorTarjeta, $Importe, $Descripc
 </Node>
 <Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="514" guiY="271" id="DEDUP" type="DEDUP"/>
 <Node dedupKey="NumTarjeta(i);EmisorTarjeta(i)" enabled="enabled" guiName="Dedup" guiX="514" guiY="409" id="DEDUP1" type="DEDUP"/>
+<Node enabled="enabled" guiName="ExtFilter" guiX="923" guiY="409" id="EXT_FILTER" type="EXT_FILTER">
+<attr name="filterExpression"><![CDATA[//#CTL2
+$in.0.cliente == null;]]></attr>
+</Node>
 <Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="211" id="EXT_HASH_JOIN1" joinKey="$NumTarjeta=$NumTarjeta;" slaveDuplicates="true" type="EXT_HASH_JOIN">
 <attr name="transform"><![CDATA[//#CTL2
 
@@ -285,17 +211,18 @@ function integer transform() {
 // function string getMessage() {}
 ]]></attr>
 </Node>
-<Node enabled="enabled" guiName="ExtHashJoin" guiX="728" guiY="475" id="EXT_HASH_JOIN3" joinKey="$NumTarjeta=$NumTarjeta;$EmisorTarjeta=$EmisorTarjeta" joinType="fullOuter" type="EXT_HASH_JOIN">
+<Node enabled="enabled" guiName="ExtHashJoin" guiX="734" guiY="419" id="EXT_HASH_JOIN3" joinKey="$NumTarjeta=$NumTarjeta;" joinType="leftOuter" type="EXT_HASH_JOIN">
 <attr name="transform"><![CDATA[//#CTL2
 
 // Transforms input record into output record.
 function integer transform() {
-	$out.0.emisorTarjeta = $in.1.EmisorTarjeta;
-	$out.0.fecha = $in.1.Fecha;
-	$out.0.importe = $in.1.Importe;
-	$out.0.numeroTarjeta = $in.1.NumTarjeta;
-	$out.0.descr = $in.1.DescripcionOp;
-	$out.0.idTrans = $in.1.IdTransaccion;
+	$out.0.emisorTarjeta = $in.0.EmisorTarjeta;
+	$out.0.fecha = $in.0.Fecha;
+	$out.0.importe = $in.0.Importe;
+	$out.0.idTrans = $in.0.IdTransaccion;
+	$out.0.descr = $in.0.DescripcionOp;
+	$out.0.numeroTarjeta = $in.0.NumTarjeta;
+	$out.0.cliente = $in.1.NombreCliente;
 
 	return ALL;
 }
@@ -327,7 +254,7 @@ from \`mydb\`.\`transaccionesaux\`]]></attr>
 <attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`listadoclientes\` (\`idCliente\`, \`nombreCliente\`, \`numeroTarjeta\`, \`emisor\`, \`montoOperaciones\`)
 VALUES ($idCliente, $nombreCliente, $numeroTarjeta, $emisor, $montoOperaciones)]]></attr>
 </Node>
-<Node dbConnection="JDBC1" enabled="enabled" guiName="TransaccionesSin" guiX="970" guiY="467" id="TRANSACCIONES_SIN" type="DB_OUTPUT_TABLE">
+<Node dbConnection="JDBC1" enabled="enabled" guiName="TransaccionesSin" guiX="1105" guiY="409" id="TRANSACCIONES_SIN" type="DB_OUTPUT_TABLE">
 <attr name="sqlQuery"><![CDATA[INSERT INTO \`mydb\`.\`transaccionessin\` (\`idTrans\`, \`descr\`, \`fecha\`, \`importe\`, \`numeroTarjeta\`, \`emisorTarjeta\`)
 VALUES ($idTrans, $descr, $fecha, $importe, $numeroTarjeta, $emisorTarjeta)]]></attr>
 </Node>
@@ -335,10 +262,11 @@ VALUES ($idTrans, $descr, $fecha, $importe, $numeroTarjeta, $emisorTarjeta)]]></
 <Edge fromNode="CLIENTES_DE_MY_SQL:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 0 (out)" toNode="DEDUP:0"/>
 <Edge fromNode="CLIENTES_DE_MY_SQL:1" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 0 (in)" metadata="Metadata2" outPort="Port 1 (out)" toNode="DEDUP1:0"/>
 <Edge fromNode="DEDUP:0" guiBendpoints="" guiRouter="Manhattan" id="Edge6" inPort="Port 1 (slave)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN1:1"/>
-<Edge fromNode="DEDUP1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge3" inPort="Port 0 (driver)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN3:0"/>
+<Edge fromNode="DEDUP1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge21" inPort="Port 1 (slave)" metadata="Metadata2" outPort="Port 0 (unique)" toNode="EXT_HASH_JOIN3:1"/>
+<Edge fromNode="EXT_FILTER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge20" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (accepted)" toNode="TRANSACCIONES_SIN:0"/>
 <Edge fromNode="EXT_HASH_JOIN1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge19" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
-<Edge fromNode="EXT_HASH_JOIN3:0" guiBendpoints="" guiRouter="Manhattan" id="Edge8" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (out)" toNode="TRANSACCIONES_SIN:0"/>
+<Edge fromNode="EXT_HASH_JOIN3:0" guiBendpoints="" guiRouter="Manhattan" id="Edge17" inPort="Port 0 (in)" metadata="Metadata6" outPort="Port 0 (out)" toNode="EXT_FILTER:0"/>
 <Edge fromNode="TABLA_AUX1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge4" inPort="Port 0 (driver)" metadata="Metadata4" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN1:0"/>
-<Edge fromNode="TABLA_AUX1:1" guiBendpoints="" guiRouter="Manhattan" id="Edge5" inPort="Port 1 (slave)" metadata="Metadata4" outPort="Port 1 (out)" toNode="EXT_HASH_JOIN3:1"/>
+<Edge fromNode="TABLA_AUX1:1" guiBendpoints="" guiRouter="Manhattan" id="Edge26" inPort="Port 0 (driver)" metadata="Metadata4" outPort="Port 1 (out)" toNode="EXT_HASH_JOIN3:0"/>
 </Phase>
 </Graph>
