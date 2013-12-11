@@ -12,7 +12,7 @@ public class SQLExceptionException extends java.lang.Exception{
 
     private static final long serialVersionUID = 1386675037350L;
     
-    private org.web.clientesdb.Consulta1Stub.SQLExceptionE faultMessage;
+    private org.web.clientesdb.ClienteDBSWStub.SQLExceptionE faultMessage;
 
     
         public SQLExceptionException() {
@@ -32,11 +32,11 @@ public class SQLExceptionException extends java.lang.Exception{
         }
     
 
-    public void setFaultMessage(org.web.clientesdb.Consulta1Stub.SQLExceptionE msg){
+    public void setFaultMessage(org.web.clientesdb.ClienteDBSWStub.SQLExceptionE msg){
        faultMessage = msg;
     }
     
-    public org.web.clientesdb.Consulta1Stub.SQLExceptionE getFaultMessage(){
+    public org.web.clientesdb.ClienteDBSWStub.SQLExceptionE getFaultMessage(){
        return faultMessage;
     }
 }

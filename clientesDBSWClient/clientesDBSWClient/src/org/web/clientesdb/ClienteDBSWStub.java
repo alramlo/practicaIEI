@@ -14,7 +14,7 @@
         */
 
         
-        public class Consulta1Stub extends org.apache.axis2.client.Stub
+        public class ClienteDBSWStub extends org.apache.axis2.client.Stub
         {
         protected org.apache.axis2.description.AxisOperation[] _operations;
 
@@ -75,7 +75,7 @@
       *Constructor that takes in a configContext
       */
 
-    public Consulta1Stub(org.apache.axis2.context.ConfigurationContext configurationContext,
+    public ClienteDBSWStub(org.apache.axis2.context.ConfigurationContext configurationContext,
        java.lang.String targetEndpoint)
        throws org.apache.axis2.AxisFault {
          this(configurationContext,targetEndpoint,false);
@@ -85,7 +85,7 @@
    /**
      * Constructor that takes in a configContext  and useseperate listner
      */
-   public Consulta1Stub(org.apache.axis2.context.ConfigurationContext configurationContext,
+   public ClienteDBSWStub(org.apache.axis2.context.ConfigurationContext configurationContext,
         java.lang.String targetEndpoint, boolean useSeparateListener)
         throws org.apache.axis2.AxisFault {
          //To populate AxisService
@@ -105,7 +105,7 @@
     /**
      * Default Constructor
      */
-    public Consulta1Stub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
+    public ClienteDBSWStub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
         
                     this(configurationContext,"http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
                 
@@ -114,7 +114,7 @@
     /**
      * Default Constructor
      */
-    public Consulta1Stub() throws org.apache.axis2.AxisFault {
+    public ClienteDBSWStub() throws org.apache.axis2.AxisFault {
         
                     this("http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
                 
@@ -123,7 +123,7 @@
     /**
      * Constructor taking the target endpoint
      */
-    public Consulta1Stub(java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
+    public ClienteDBSWStub(java.lang.String targetEndpoint) throws org.apache.axis2.AxisFault {
         this(null,targetEndpoint);
     }
 
@@ -139,7 +139,7 @@
 
                     
 
-                            public  org.web.clientesdb.Consulta1Stub.GetResultadoResponse getResultado(
+                            public  org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse getResultado(
 
                             )
                         
@@ -191,11 +191,11 @@
                 
                                 java.lang.Object object = fromOM(
                                              _returnEnv.getBody().getFirstElement() ,
-                                             org.web.clientesdb.Consulta1Stub.GetResultadoResponse.class,
+                                             org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse.class,
                                               getEnvelopeNamespaces(_returnEnv));
 
                                
-                                        return (org.web.clientesdb.Consulta1Stub.GetResultadoResponse)object;
+                                        return (org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse)object;
                                    
          }catch(org.apache.axis2.AxisFault f){
 
@@ -3342,12 +3342,12 @@
         }
            
     
-            private  org.apache.axiom.om.OMElement  toOM(org.web.clientesdb.Consulta1Stub.GetResultadoResponse param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(org.web.clientesdb.Consulta1Stub.GetResultadoResponse.MY_QNAME,
+                             return param.getOMElement(org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3356,12 +3356,12 @@
 
             }
         
-            private  org.apache.axiom.om.OMElement  toOM(org.web.clientesdb.Consulta1Stub.SQLExceptionE param, boolean optimizeContent)
+            private  org.apache.axiom.om.OMElement  toOM(org.web.clientesdb.ClienteDBSWStub.SQLExceptionE param, boolean optimizeContent)
             throws org.apache.axis2.AxisFault {
 
             
                         try{
-                             return param.getOMElement(org.web.clientesdb.Consulta1Stub.SQLExceptionE.MY_QNAME,
+                             return param.getOMElement(org.web.clientesdb.ClienteDBSWStub.SQLExceptionE.MY_QNAME,
                                           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
                         } catch(org.apache.axis2.databinding.ADBException e){
                             throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3387,16 +3387,16 @@
 
         try {
         
-                if (org.web.clientesdb.Consulta1Stub.GetResultadoResponse.class.equals(type)){
+                if (org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse.class.equals(type)){
                 
-                           return org.web.clientesdb.Consulta1Stub.GetResultadoResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return org.web.clientesdb.ClienteDBSWStub.GetResultadoResponse.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
            
-                if (org.web.clientesdb.Consulta1Stub.SQLExceptionE.class.equals(type)){
+                if (org.web.clientesdb.ClienteDBSWStub.SQLExceptionE.class.equals(type)){
                 
-                           return org.web.clientesdb.Consulta1Stub.SQLExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
+                           return org.web.clientesdb.ClienteDBSWStub.SQLExceptionE.Factory.parse(param.getXMLStreamReaderWithoutCaching());
                     
 
                 }
