@@ -107,8 +107,8 @@
      */
     public ClienteDBSWStub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
         
-                    this(configurationContext,"http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
-                
+                    //this(configurationContext,"http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
+    	this(configurationContext,"http://localhost:8080/axis2/services/ClienteDBSW/getResultado" );
     }
 
     /**
@@ -116,8 +116,8 @@
      */
     public ClienteDBSWStub() throws org.apache.axis2.AxisFault {
         
-                    this("http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
-                
+                   // this("http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
+    	 this("http://localhost:8080/axis2/services/ClienteDBSW/getResultado/" );
     }
 
     /**
