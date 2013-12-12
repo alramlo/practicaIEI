@@ -1,6 +1,6 @@
 
 /**
- * Consulta1Stub.java
+ * ClienteDBSWStub.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis2 version: 1.6.2  Built on : Apr 17, 2012 (05:33:49 IST)
@@ -10,7 +10,7 @@
         
 
         /*
-        *  Consulta1Stub java implementation
+        *  ClienteDBSWStub java implementation
         */
 
         
@@ -38,7 +38,7 @@
     private void populateAxisService() throws org.apache.axis2.AxisFault {
 
      //creating the Service with a unique name
-     _service = new org.apache.axis2.description.AxisService("Consulta1" + getUniqueSuffix());
+     _service = new org.apache.axis2.description.AxisService("ClienteDBSW" + getUniqueSuffix());
      addAnonymousOperations();
 
         //creating the operations
@@ -65,7 +65,7 @@
          
               faultExceptionNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://clientesDB.web.org","SQLException"), "getResultado"),"org.web.clientesdb.SQLExceptionException");
               faultExceptionClassNameMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://clientesDB.web.org","SQLException"), "getResultado"),"org.web.clientesdb.SQLExceptionException");
-              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://clientesDB.web.org","SQLException"), "getResultado"),"org.web.clientesdb.Consulta1Stub$SQLExceptionE");
+              faultMessageMap.put(new org.apache.axis2.client.FaultMapKey(new javax.xml.namespace.QName("http://clientesDB.web.org","SQLException"), "getResultado"),"org.web.clientesdb.ClienteDBSWStub$SQLExceptionE");
            
 
 
@@ -99,6 +99,9 @@
                 targetEndpoint));
         _serviceClient.getOptions().setUseSeparateListener(useSeparateListener);
         
+            //Set the soap version
+            _serviceClient.getOptions().setSoapVersionURI(org.apache.axiom.soap.SOAP12Constants.SOAP_ENVELOPE_NAMESPACE_URI);
+        
     
     }
 
@@ -107,7 +110,7 @@
      */
     public ClienteDBSWStub(org.apache.axis2.context.ConfigurationContext configurationContext) throws org.apache.axis2.AxisFault {
         
-                    this(configurationContext,"http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
+                    this(configurationContext,"http://192.168.56.1:8080/axis2/services/ClienteDBSW.ClienteDBSWHttpSoap12Endpoint/" );
                 
     }
 
@@ -116,7 +119,7 @@
      */
     public ClienteDBSWStub() throws org.apache.axis2.AxisFault {
         
-                    this("http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/" );
+                    this("http://192.168.56.1:8080/axis2/services/ClienteDBSW.ClienteDBSWHttpSoap12Endpoint/" );
                 
     }
 
@@ -133,7 +136,7 @@
                     /**
                      * Auto generated method signature
                      * 
-                     * @see org.web.clientesdb.Consulta1#getResultado
+                     * @see org.web.clientesdb.ClienteDBSW#getResultado
                      * @throws org.web.clientesdb.SQLExceptionException : 
                      */
 
@@ -285,7 +288,7 @@
         }
         return false;
     }
-     //http://192.168.23.128:8080/clientesDBSW/services/Consulta1.Consulta1HttpSoap11Endpoint/
+     //http://192.168.56.1:8080/axis2/services/ClienteDBSW.ClienteDBSWHttpSoap12Endpoint/
         public static class SQLException extends Exception
         implements org.apache.axis2.databinding.ADBBean{
         /* This type was generated from the piece of schema that had

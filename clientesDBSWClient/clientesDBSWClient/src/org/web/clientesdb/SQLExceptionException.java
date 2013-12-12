@@ -10,7 +10,7 @@ package org.web.clientesdb;
 
 public class SQLExceptionException extends java.lang.Exception{
 
-    private static final long serialVersionUID = 1386675037350L;
+    private static final long serialVersionUID = 1386861365516L;
     
     private org.web.clientesdb.ClienteDBSWStub.SQLExceptionE faultMessage;
 
