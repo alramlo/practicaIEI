@@ -22,6 +22,7 @@ public class InfoEquipo extends JDialog {
 	public InfoEquipo() {
 		setBounds(100, 100, 357, 706);
 		setTitle("IEI 2013 - Equipo");
+		setResizable(false);
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
