@@ -20,7 +20,7 @@
     <sequenceFlow id="flow9" name="No" sourceRef="exclusivegateway4" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[!${evaluado}]]></conditionExpression>
     </sequenceFlow>
-    <startEvent id="startevent1" name="Start">
+    <startEvent id="startevent1" name="Start" activiti:formKey="pedido.form">
       <extensionElements>
         <activiti:formProperty id="codigoCliente" name="codigoCliente" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="codigoArticulo" name="codigoArticulo" type="long" required="true"></activiti:formProperty>
@@ -35,12 +35,6 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow19" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow20" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask6" name="Comprobar si Existe Cliente">
-      <extensionElements>
-        <activiti:formProperty id="existe" name="existe" type="boolean" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow22" sourceRef="usertask6" targetRef="exclusivegateway1"></sequenceFlow>
     <serviceTask id="servicetask7" name="Calcular Precio"></serviceTask>
     <sequenceFlow id="flow24" sourceRef="servicetask10" targetRef="servicetask7"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
@@ -64,13 +58,24 @@
     <sequenceFlow id="flow32" sourceRef="usertask7" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="servicetask9" targetRef="parallelgateway2"></sequenceFlow>
     <sequenceFlow id="flow34" sourceRef="parallelgateway2" targetRef="usertask3"></sequenceFlow>
-    <sequenceFlow id="flow35" sourceRef="startevent1" targetRef="usertask6"></sequenceFlow>
-    <serviceTask id="servicetask10" name="Insertar Datos Cliente"></serviceTask>
+    <serviceTask id="servicetask10" name="Insertar Datos Cliente" activiti:class="InsertarCliente"></serviceTask>
+    <sequenceFlow id="flow36" name="si" sourceRef="exclusivegateway1" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${existe}]]></conditionExpression>
+    </sequenceFlow>
+    <scriptTask id="scripttask1" name="Script Task" scriptFormat="groovy" activiti:autoStoreVariables="true">
+      <script>if(codigoCliente==0){
+	existe=false;
+}else{
+	existe=true;
+}</script>
+    </scriptTask>
+    <sequenceFlow id="flow37" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="scripttask1" targetRef="exclusivegateway1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
     <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="319.0" y="216.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="319.0" y="209.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="355.0" y="287.0"></omgdc:Bounds>
@@ -96,9 +101,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="632.0" y="444.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
-        <omgdc:Bounds height="55.0" width="105.0" x="183.0" y="202.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
         <omgdc:Bounds height="55.0" width="105.0" x="470.0" y="202.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -120,8 +122,11 @@
       <bpmndi:BPMNShape bpmnElement="servicetask10" id="BPMNShape_servicetask10">
         <omgdc:Bounds height="55.0" width="105.0" x="287.0" y="95.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="180.0" y="208.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow" id="BPMNEdge_flow">
-        <omgdi:waypoint x="339.0" y="216.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="209.0"></omgdi:waypoint>
         <omgdi:waypoint x="339.0" y="150.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="13.0" x="6.0" y="0.0"></omgdc:Bounds>
@@ -131,7 +136,7 @@
         <omgdi:waypoint x="460.0" y="314.0"></omgdi:waypoint>
         <omgdi:waypoint x="649.0" y="332.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="-79.0" y="-4.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="59.0" x="-79.0" y="-4.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
@@ -153,10 +158,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="786.0" y="532.0"></omgdi:waypoint>
         <omgdi:waypoint x="649.0" y="479.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="288.0" y="229.0"></omgdi:waypoint>
-        <omgdi:waypoint x="319.0" y="236.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
         <omgdi:waypoint x="392.0" y="122.0"></omgdi:waypoint>
@@ -223,10 +224,21 @@
         <omgdi:waypoint x="909.0" y="559.0"></omgdi:waypoint>
         <omgdi:waypoint x="839.0" y="559.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="359.0" y="229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="229.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="10.0" y="0.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
         <omgdi:waypoint x="112.0" y="175.0"></omgdi:waypoint>
-        <omgdi:waypoint x="112.0" y="229.0"></omgdi:waypoint>
-        <omgdi:waypoint x="183.0" y="229.0"></omgdi:waypoint>
+        <omgdi:waypoint x="112.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="180.0" y="235.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="285.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.0" y="229.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
