@@ -40,7 +40,7 @@ private void calculaPrecio(DelegateExecution arg0){
 	try {
 		s= mysql.createStatement();
 		
-		s.executeUpdate("SELECT credito FROM clientes WHERE idCliente = "+ codigoCliente);
+		s.executeUpdate("SELECT credito FROM activiti.clientes WHERE idCliente = "+ codigoCliente);
 		
 		rs = s.getResultSet();
 		while (rs.next()) {
@@ -54,7 +54,7 @@ private void calculaPrecio(DelegateExecution arg0){
 		// Obtenemos el precio del artículo a comprar
 		float precio = 0;
 		Statement s2 = mysql.createStatement();
-		s2.executeUpdate("SELECT precio FROM articulos WHERE id = "+ codigoArticulo);
+		s2.executeUpdate("SELECT precio FROM activiti.articulos WHERE id = "+ codigoArticulo);
 		ResultSet rs2 = s2.getResultSet();
 		while (rs2.next()) {
 			precio = rs2.getFloat(1);
