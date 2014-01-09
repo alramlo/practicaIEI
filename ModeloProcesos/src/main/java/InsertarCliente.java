@@ -55,7 +55,7 @@ public class InsertarCliente implements org.activiti.engine.delegate.JavaDelegat
 	public void conectar() throws ClassNotFoundException{
 			try{
 			
-			sourceMysql="jdbc:mysql://db4free.net:3306/";
+			sourceMysql="jdbc:mysql://localhost:3306/";
 			Class.forName("com.mysql.jdbc.Driver");
 			mysql = DriverManager.getConnection (sourceMysql,"ieiactiviti", "ieiactiviti");
 			
