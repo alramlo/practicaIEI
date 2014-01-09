@@ -35,7 +35,7 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow19" sourceRef="servicetask1" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow20" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask7" name="Calcular Precio"></serviceTask>
+    <serviceTask id="servicetask7" name="Calcular Precio" activiti:class="calcularPrecio"></serviceTask>
     <sequenceFlow id="flow24" sourceRef="servicetask10" targetRef="servicetask7"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow25" name="Supera limite?" sourceRef="servicetask7" targetRef="exclusivegateway5"></sequenceFlow>
