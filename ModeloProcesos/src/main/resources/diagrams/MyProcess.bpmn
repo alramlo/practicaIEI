@@ -7,7 +7,8 @@
     </sequenceFlow>
     <userTask id="usertask1" name="Autorizar Pedido">
       <extensionElements>
-        <activiti:formProperty id="autorizado" name="autorizado" type="Boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="autorizado" name="autorizado" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="motivo" name="motivo" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow8" name="Autorizado?" sourceRef="usertask1" targetRef="exclusivegateway4"></sequenceFlow>
@@ -62,7 +63,7 @@
     </sequenceFlow>
     <userTask id="usertask2" name="enviado">
       <extensionElements>
-        <activiti:formProperty id="enviado" name="enviado" type="Boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="enviado" name="enviado" type="boolean" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow41" sourceRef="servicetask11" targetRef="usertask2"></sequenceFlow>
